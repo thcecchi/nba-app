@@ -9,7 +9,7 @@ import {
 function selectedSubreddit(state = '', action) {
   switch (action.type) {
   case FIND_PLAYER:
-  console.log(action.playerName)
+    console.log('find player reducer')
     return action.playerName
   default:
     return state
@@ -28,13 +28,13 @@ function posts(state = {
         didInvalidate: true
       })
     case REQUEST_POSTS:
-        console.log(state)
+        console.log('requesting posts reducer')
       return Object.assign({}, state, {
         isFetching: true,
         didInvalidate: false
       })
     case RECEIVE_POSTS:
-    console.log('receiving data')
+      console.log('receiving posts reducer')
       return Object.assign({}, state, {
         isFetching: false,
         didInvalidate: false,

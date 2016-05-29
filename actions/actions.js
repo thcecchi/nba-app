@@ -6,6 +6,7 @@ export const FIND_PLAYER = 'FIND_PLAYER'
 export const INVALIDATE_SUBREDDIT = 'INVALIDATE_SUBREDDIT'
 
 export function findPlayer(playerName) {
+  console.log('find player action')
   return {
     type: FIND_PLAYER,
     playerName
@@ -20,6 +21,7 @@ export function invalidateSubreddit(subreddit) {
 }
 
 function requestPosts(subreddit) {
+  console.log('request posts action')
   return {
     type: REQUEST_POSTS,
     subreddit
@@ -27,12 +29,19 @@ function requestPosts(subreddit) {
 }
 
 function receivePosts(subreddit, json) {
-  console.log(json)
+  console.log('receive posts action')
   return {
     type: RECEIVE_POSTS,
     subreddit,
     posts: json.commonPlayerInfo,
     receivedAt: Date.now()
+  }
+}
+
+function searchPlayer(playerName) {
+  console.log('search player action')
+  return dispatch => {
+    dispatch(findPlayer(playerName))
   }
 }
 
@@ -47,16 +56,24 @@ function fetchPosts(subreddit) {
       var nbaAPI = nba
 
       return nba.ready(function () {
-        console.log('nba is ready')
+        console.log('fetch posts action')
+
           nbaAPI.api.playersInfo({}, (err, response) => {
             var itemList = response.resultSets[0].rowSet;
-            var randomPlayer = [Math.floor(Math.random()*itemList.length)];
-            var player = itemList[randomPlayer][0]
-            console.log(player)
-
-            nbaAPI.api.playerInfo({playerId: player}, (err, response) => {
-              dispatch(receivePosts(subreddit, response))
+            itemList.forEach(function (player) {
+              if (subreddit == player[2]) {
+                nbaAPI.api.playerInfo({playerId: player[0]}, (err, response) => {
+                  dispatch(receivePosts(subreddit, response))
+                })
+              }
             })
+            // var randomPlayer = [Math.floor(Math.random()*itemList.length)];
+            // var player = itemList[randomPlayer][0]
+            // console.log(player)
+
+            // nbaAPI.api.playerInfo({playerId: player}, (err, response) => {
+            //   dispatch(receivePosts(subreddit, response))
+            // })
           })
       });
   }
