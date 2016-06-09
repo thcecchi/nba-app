@@ -4,6 +4,7 @@ import configureStore from '../configureStore'
 import AsyncApp from './AsyncApp'
 
 const store = configureStore()
+console.log(store.getState())
 
 export default class Root extends Component {
   render() {

@@ -2,43 +2,58 @@ import Immutable from 'immutable'
 import nba from 'nba'
 import { combineReducers } from 'redux'
 import {
-  SELECT_SUBREDDIT, INVALIDATE_SUBREDDIT,
-  REQUEST_POSTS, RECEIVE_POSTS, FIND_PLAYER
+  FIND_PLAYER, SET_PLAYER_LIST, RECEIVE_PLAYER_DATA
 } from '../actions/actions'
 
-function selectedSubreddit(state = '', action) {
+function selectedPlayer(state = '', action) {
   switch (action.type) {
   case FIND_PLAYER:
     console.log('find player reducer')
-    return action.playerName
+    console.log(action)
+    var itemList = action.playerList
+    console.log(itemList)
+    itemList.forEach(function (player) {
+      if (action.playerName == player[2]) {
+        console.log(player[0])
+        return player[0]
+      }
+    })
   default:
     return state
   }
 }
 
-function posts(state = {
+function playerList(state = {
   isFetching: false,
   didInvalidate: false,
   items: []
 }, action) {
   switch (action.type) {
+  case SET_PLAYER_LIST:
+    console.log('setting up the player list')
+    return Object.assign({}, state, {
+      isFetching: false,
+      didInvalidate: false,
+      items: action.playerList,
+      lastUpdated: action.receivedAt
+    })
+  default:
+    return state
+  }
+}
 
-    case INVALIDATE_SUBREDDIT:
-      return Object.assign({}, state, {
-        didInvalidate: true
-      })
-    case REQUEST_POSTS:
-        console.log('requesting posts reducer')
-      return Object.assign({}, state, {
-        isFetching: true,
-        didInvalidate: false
-      })
-    case RECEIVE_POSTS:
+function playerData(state = {
+  isFetching: false,
+  didInvalidate: false,
+  data: []
+}, action) {
+  switch (action.type) {
+    case RECEIVE_PLAYER_DATA:
       console.log('receiving posts reducer')
       return Object.assign({}, state, {
         isFetching: false,
         didInvalidate: false,
-        items: action.posts,
+        data: action.posts,
         lastUpdated: action.receivedAt
       })
     default:
@@ -46,22 +61,23 @@ function posts(state = {
   }
 }
 
-function postsBySubreddit(state = { }, action) {
-  switch (action.type) {
-    case INVALIDATE_SUBREDDIT:
-    case RECEIVE_POSTS:
-    case REQUEST_POSTS:
-      return Object.assign({}, state, {
-        [action.subreddit]: posts(state[action.subreddit], action)
-      })
-    default:
-      return state
-  }
-}
+// function postsBySubreddit(state = { }, action) {
+//   switch (action.type) {
+//     case INVALIDATE_SUBREDDIT:
+//     case RECEIVE_POSTS:
+//     case REQUEST_POSTS:
+//       return Object.assign({}, state, {
+//         [action.subreddit]: posts(state[action.subreddit], action)
+//       })
+//     default:
+//       return state
+//   }
+// }
 
 const rootReducer = combineReducers({
-  postsBySubreddit,
-  selectedSubreddit
+  selectedPlayer,
+  playerList,
+  playerData
 })
 
 export default rootReducer

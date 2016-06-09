@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { selectSubreddit, fetchPostsIfNeeded, invalidateSubreddit, findPlayer } from '../actions/actions'
+import { selectedPlayer, searchPlayer, getPlayerList } from '../actions/actions'
 import Picker from '../components/Picker'
 import Posts from '../components/Posts'
 
@@ -8,40 +8,42 @@ class AsyncApp extends Component {
   constructor(props) {
     super(props)
     this.handleChange = this.handleChange.bind(this)
-    this.handleRefreshClick = this.handleRefreshClick.bind(this)
+    // this.handleRefreshClick = this.handleRefreshClick.bind(this)
   }
 
   componentDidMount() {
     const { dispatch, selectedSubreddit } = this.props
-    dispatch(fetchPostsIfNeeded(selectedSubreddit))
+    // dispatch(fetchPostsIfNeeded(selectedSubreddit))
+    dispatch(getPlayerList())
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.selectedSubreddit !== this.props.selectedSubreddit) {
-      const { dispatch, selectedSubreddit } = nextProps
-      dispatch(fetchPostsIfNeeded(selectedSubreddit))
-    }
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   console.log(nextProps)
+  //   if (nextProps.selectedSubreddit !== this.props.selectedSubreddit) {
+  //     const { dispatch, selectedSubreddit } = nextProps
+  //     dispatch(fetchPostsIfNeeded(selectedSubreddit))
+  //   }
+  // }
 
   handleChange(nextSubreddit) {
     this.props.dispatch(selectSubreddit(nextSubreddit))
   }
 
-  handleRefreshClick(e) {
-    e.preventDefault()
-
-    const { dispatch, selectedSubreddit } = this.props
-    dispatch(invalidateSubreddit(selectedSubreddit))
-    dispatch(fetchPostsIfNeeded(selectedSubreddit))
-  }
+  // handleRefreshClick(e) {
+  //   e.preventDefault()
+  //
+  //   const { dispatch, selectedSubreddit } = this.props
+  //   // dispatch(invalidateSubreddit(selectedSubreddit))
+  //   dispatch(fetchPostsIfNeeded(selectedSubreddit))
+  // }
 
   render() {
-    const { selectedSubreddit, posts, isFetching, lastUpdated, dispatch } = this.props
+    const { state, isFetching, lastUpdated, dispatch } = this.props
     return (
       <div>
         <Picker onChange={e => {
           if(e.keyCode == 13){
-            dispatch(findPlayer(e.target.value))
+            dispatch(searchPlayer(e.target.value, state.playerList.items))
             e.target.value = ''
           }
         }}/>
@@ -52,23 +54,9 @@ class AsyncApp extends Component {
               {' '}
             </span>
           }
-          {!isFetching &&
-            <a href='#'
-               onClick={this.handleRefreshClick}>
-              Refresh
-            </a>
-          }
         </p>
-        {isFetching && posts.length === 0 &&
+        {isFetching &&
           <h2>Loading...</h2>
-        }
-        {!isFetching && posts.length === 0 &&
-          <h2>Empty.</h2>
-        }
-        {posts.length > 0 &&
-          <div style={{ opacity: isFetching ? 0.5 : 1 }}>
-            <Posts posts={posts} />
-          </div>
         }
       </div>
     )
@@ -76,29 +64,18 @@ class AsyncApp extends Component {
 }
 
 AsyncApp.propTypes = {
-  selectedSubreddit: PropTypes.string.isRequired,
-  posts: PropTypes.array.isRequired,
-  isFetching: PropTypes.bool.isRequired,
-  lastUpdated: PropTypes.number,
+  selectedPlayer: PropTypes.string.isRequired,
   dispatch: PropTypes.func.isRequired
 }
 
 function mapStateToProps(state) {
-  const { selectedSubreddit, postsBySubreddit } = state
-  const {
-    isFetching,
-    lastUpdated,
-    items: posts
-  } = postsBySubreddit[selectedSubreddit] || {
-    isFetching: true,
-    items: []
-  }
+  console.log(state)
+  const { selectedPlayer,  getPlayerList} = state
 
   return {
-    selectedSubreddit,
-    posts,
-    isFetching,
-    lastUpdated
+    selectedPlayer,
+    getPlayerList,
+    state
   }
 }
 
