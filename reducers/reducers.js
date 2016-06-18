@@ -2,21 +2,43 @@ import Immutable from 'immutable'
 import nba from 'nba'
 import { combineReducers } from 'redux'
 import {
-  FIND_PLAYER, SET_PLAYER_LIST, RECEIVE_PLAYER_DATA
+  FIND_PLAYER, FIND_PLAYER_STATS, SET_PLAYER_LIST, RECEIVE_PLAYER_DATA
 } from '../actions/actions'
 
-function selectedPlayer(state = '', action) {
+function selectedPlayer(state = {
+  selectedPlayer: 0
+}, action) {
   switch (action.type) {
   case FIND_PLAYER:
     console.log('find player reducer')
     console.log(action)
     var itemList = action.playerList
     console.log(itemList)
+    var playerId = 0
     itemList.forEach(function (player) {
       if (action.playerName == player[2]) {
         console.log(player[0])
-        return player[0]
+        // receivePlayerData(player[0])
+        playerId = player[0]
       }
+    })
+    return Object.assign({}, state, {
+      selectedPlayer: playerId
+    })
+  default:
+    return state
+  }
+}
+
+function selectedPlayerStats(state = [], action) {
+  switch (action.type) {
+  case FIND_PLAYER_STATS:
+    console.log('find player stats reducer')
+    console.log(action.playerId)
+    var nbaAPI = nba
+    nbaAPI.api.playerInfo({playerId: action.playerId}, (err, response) => {
+      console.log(response)
+      return state.playerData = response;
     })
   default:
     return state
@@ -77,7 +99,7 @@ function playerData(state = {
 const rootReducer = combineReducers({
   selectedPlayer,
   playerList,
-  playerData
+  selectedPlayerStats
 })
 
 export default rootReducer

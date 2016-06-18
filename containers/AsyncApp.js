@@ -38,7 +38,7 @@ class AsyncApp extends Component {
   // }
 
   render() {
-    const { state, isFetching, lastUpdated, dispatch } = this.props
+    const { state, isFetching, lastUpdated, dispatch, getState } = this.props
     return (
       <div>
         <Picker onChange={e => {
@@ -64,17 +64,19 @@ class AsyncApp extends Component {
 }
 
 AsyncApp.propTypes = {
-  selectedPlayer: PropTypes.string.isRequired,
-  dispatch: PropTypes.func.isRequired
+  selectedPlayer: PropTypes.number.isRequired,
+  dispatch: PropTypes.func.isRequired,
+  playerData: PropTypes.object.isRequired,
 }
 
 function mapStateToProps(state) {
   console.log(state)
-  const { selectedPlayer,  getPlayerList} = state
+  const { selectedPlayer,  getPlayerList, selectedPlayerStats} = state
 
   return {
     selectedPlayer,
     getPlayerList,
+    selectedPlayerStats,
     state
   }
 }
