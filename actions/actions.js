@@ -18,11 +18,11 @@ function findPlayer(playerName, playerList) {
   }
 }
 
-function findPlayerStats(state) {
+function findPlayerStats(playerData) {
   console.log('find player stats action')
   return {
     type: FIND_PLAYER_STATS,
-    playerId: state.selectedPlayer.selectedPlayer
+    playerStats: playerData
   }
 }
 
@@ -34,22 +34,6 @@ export function setPlayerList(playerList) {
     playerList
   }
 }
-
-//
-// export function invalidateSubreddit(subreddit) {
-//   return {
-//     type: INVALIDATE_SUBREDDIT,
-//     subreddit
-//   }
-// }
-
-// function requestPosts(subreddit) {
-//   console.log('request posts action')
-//   return {
-//     type: REQUEST_POSTS,
-//     subreddit
-//   }
-// }
 
 function receivePlayer(playerData) {
   console.log('receive posts action')
@@ -65,17 +49,20 @@ export function searchPlayer(playerName, playerList) {
   return (dispatch, getState) => {
     console.log(getState())
     dispatch(findPlayer(playerName, playerList))
-    dispatch(findPlayerStats(getState()))
+    dispatch(receivePlayerData(getState()))
+    // dispatch(findPlayerStats(getState()))
   }
 }
 
-// export function receivePlayerData(state) {
-//     console.log('player data action')
-//     console.log(state)
-//     return dispatch => {
-//         dispatch(findPlayerStats())
-//     }
-// }
+function receivePlayerData(state) {
+  console.log(state.selectedPlayer.selectedPlayer)
+    return dispatch => {
+      nba.api.playerInfo({playerId: state.selectedPlayer.selectedPlayer}, (err, response) => {
+        console.log(response)
+          dispatch(findPlayerStats(response))
+        })
+    }
+}
 
 // function fetchPosts(subreddit) {
 //   return dispatch => {

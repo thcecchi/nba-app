@@ -6,7 +6,7 @@ export default class Picker extends Component {
 
     return (
       <span>
-        <h1>I Love Hoops</h1>
+        <h1>HOOPSTATS</h1>
          <input type="text" onKeyUp={onChange}/>
       </span>
     )

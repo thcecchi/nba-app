@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { selectedPlayer, searchPlayer, getPlayerList } from '../actions/actions'
 import Picker from '../components/Picker'
-import Posts from '../components/Posts'
+import Stats from '../components/Posts'
 
 class AsyncApp extends Component {
   constructor(props) {
@@ -38,7 +38,7 @@ class AsyncApp extends Component {
   // }
 
   render() {
-    const { state, isFetching, lastUpdated, dispatch, getState } = this.props
+    const { state, isFetching, lastUpdated, dispatch, getState, selectedPlayerStats } = this.props
     return (
       <div>
         <Picker onChange={e => {
@@ -58,6 +58,11 @@ class AsyncApp extends Component {
         {isFetching &&
           <h2>Loading...</h2>
         }
+        {state.selectedPlayerStats.fetched == true &&
+          <div>
+            <Stats selectedPlayerStats={selectedPlayerStats} />
+          </div>
+        }
       </div>
     )
   }
@@ -66,7 +71,7 @@ class AsyncApp extends Component {
 AsyncApp.propTypes = {
   selectedPlayer: PropTypes.number.isRequired,
   dispatch: PropTypes.func.isRequired,
-  playerData: PropTypes.object.isRequired,
+  selectedPlayerStats: PropTypes.object.isRequired,
 }
 
 function mapStateToProps(state) {

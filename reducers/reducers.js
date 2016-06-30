@@ -30,16 +30,16 @@ function selectedPlayer(state = {
   }
 }
 
-function selectedPlayerStats(state = [], action) {
+function selectedPlayerStats(state = {}, action) {
   switch (action.type) {
   case FIND_PLAYER_STATS:
     console.log('find player stats reducer')
-    console.log(action.playerId)
-    var nbaAPI = nba
-    nbaAPI.api.playerInfo({playerId: action.playerId}, (err, response) => {
-      console.log(response)
-      return state.playerData = response;
-    })
+    console.log(action.playerStats)
+    return Object.assign({}, state, {
+        selectedPlayerStats: action.playerStats.commonPlayerInfo[0],
+        playerHeadlineStats: action.playerStats.playerHeadlineStats[0],
+        fetched: true
+      });
   default:
     return state
   }
@@ -64,24 +64,24 @@ function playerList(state = {
   }
 }
 
-function playerData(state = {
-  isFetching: false,
-  didInvalidate: false,
-  data: []
-}, action) {
-  switch (action.type) {
-    case RECEIVE_PLAYER_DATA:
-      console.log('receiving posts reducer')
-      return Object.assign({}, state, {
-        isFetching: false,
-        didInvalidate: false,
-        data: action.posts,
-        lastUpdated: action.receivedAt
-      })
-    default:
-      return state
-  }
-}
+// function playerData(state = {
+//   isFetching: false,
+//   didInvalidate: false,
+//   data: []
+// }, action) {
+//   switch (action.type) {
+//     case RECEIVE_PLAYER_DATA:
+//       console.log('receiving posts reducer')
+//       return Object.assign({}, state, {
+//         isFetching: false,
+//         didInvalidate: false,
+//         data: action.posts,
+//         lastUpdated: action.receivedAt
+//       })
+//     default:
+//       return state
+//   }
+// }
 
 // function postsBySubreddit(state = { }, action) {
 //   switch (action.type) {
