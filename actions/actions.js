@@ -1,13 +1,12 @@
 import fetch from 'isomorphic-fetch'
 import nba from 'nba'
 
-
-// export const REQUEST_POSTS = 'REQUEST_POSTS'
 export const RECEIVE_PLAYER_DATA = 'RECEIVE_PLAYER_DATA'
 export const FIND_PLAYER = 'FIND_PLAYER'
 export const FIND_PLAYER_STATS = 'FIND_PLAYER_STATS'
 export const SET_PLAYER_LIST = 'SET_PLAYER_LIST'
 
+// 4 //
 function findPlayer(playerName, playerList) {
   console.log('find player action')
   console.log(playerList)
@@ -18,6 +17,7 @@ function findPlayer(playerName, playerList) {
   }
 }
 
+// 6 //
 function findPlayerStats(playerData) {
   console.log('find player stats action')
   return {
@@ -26,6 +26,7 @@ function findPlayerStats(playerData) {
   }
 }
 
+// 2 //
 export function setPlayerList(playerList) {
   console.log('set player list')
   console.log(playerList)
@@ -35,26 +36,34 @@ export function setPlayerList(playerList) {
   }
 }
 
-function receivePlayer(playerData) {
-  console.log('receive posts action')
-  return {
-    type: RECEIVE_PLAYER_DATA,
-    stats: playerData.commonPlayerInfo,
-    receivedAt: Date.now()
-  }
-}
-
+// 3 //
 export function searchPlayer(playerName, playerList) {
   console.log('search player action')
   return (dispatch, getState) => {
     console.log(getState())
-    dispatch(findPlayer(playerName, playerList))
+
+    var nameArray = playerName.split(" ");
+    var newNameArray = []
+
+    function capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+
+    nameArray.forEach(function (name) {
+      var capitalizedName = capitalizeFirstLetter(name)
+      newNameArray.push(capitalizedName)
+    });
+
+    var capitalizedFullName = newNameArray.join(' ');
+
+    dispatch(findPlayer(capitalizedFullName, playerList))
     dispatch(receivePlayerData(getState()))
-    // dispatch(findPlayerStats(getState()))
   }
 }
 
+// 5 //
 function receivePlayerData(state) {
+  console.log('receivePlayerData actions')
   console.log(state.selectedPlayer.selectedPlayer)
     return dispatch => {
       nba.api.playerInfo({playerId: state.selectedPlayer.selectedPlayer}, (err, response) => {
@@ -64,40 +73,8 @@ function receivePlayerData(state) {
     }
 }
 
-// function fetchPosts(subreddit) {
-//   return dispatch => {
-    // dispatch(requestPosts(subreddit))
-    // console.log(subreddit)
-    // return fetch(`http://www.reddit.com/r/${subreddit}.json`)
-    //   .then(response => response.json())
-    //   .then(json => dispatch(receivePosts(subreddit, json)))
-
-      // var nbaAPI = nba
-      // return nba.ready(function () {
-      //   console.log('fetch posts action')
-      //     nbaAPI.api.playersInfo({}, (err, response) => {
-      //       var itemList = response.resultSets[0].rowSet;
-      //       itemList.forEach(function (player) {
-      //         if (subreddit == player[2]) {
-      //           nbaAPI.api.playerInfo({playerId: player[0]}, (err, response) => {
-      //             dispatch(receivePosts(subreddit, response))
-      //           })
-      //         }
-      //       })
-            // var randomPlayer = [Math.floor(Math.random()*itemList.length)];
-            // var player = itemList[randomPlayer][0]
-            // console.log(player)
-
-            // nbaAPI.api.playerInfo({playerId: player}, (err, response) => {
-            //   dispatch(receivePosts(subreddit, response))
-            // })
-//           })
-//       });
-//   }
-// }
-
+// 1 //
 export function getPlayerList() {
-  // dispatch(requestPosts(subreddit))
   console.log('get player list')
   var nbaAPI = nba
   return dispatch => {
@@ -109,25 +86,13 @@ export function getPlayerList() {
   }
 }
 
-// function shouldFetchPosts(state, data) {
-//   console.log('should fetch posts????')
-//   console.log(state)
-//   console.log(data)
-//   const posts = state.postsBySubreddit[data]
-//   if (!posts) {
-//     return true
-//   } else if (posts.isFetching) {
-//     return false
-//   } else {
-//     return posts.didInvalidate
-//   }
-// }
-
-// export function fetchPostsIfNeeded(subreddit) {
-//   console.log('fetch posts if needed???')
-//   return (dispatch, getState) => {
-//     if (shouldFetchPosts(getState(), subreddit)) {
-//       return dispatch(fetchPosts(subreddit))
-//     }
-//   }
-// }
+// //////////////////////////////////////////////////
+export function advancedStatsAction(state) {
+  // return dispatch => {
+    nba.api.shots({playerId: state.selectedPlayerStats.selectedPlayerStats.personId,
+                  teamId: '00'}, (err, response) => {
+      console.log(response)
+        // dispatch(findPlayerStats(response))
+      })
+  // }
+}
