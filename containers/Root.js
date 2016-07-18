@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { Provider } from 'react-redux'
-import configureStore from '../configureStore'
+// import configureStore from '../configureStore'
 import AsyncApp from './AsyncApp'
 import Chart from './Chart'
 
-const store = configureStore()
+// const store = configureStore()
 
 export default class Root extends Component {
   render() {
@@ -12,9 +12,9 @@ export default class Root extends Component {
     document.body.style.width = "100%";
 
     return (
-      <Provider store={store}>
+      // <Provider store={store}>
         <AsyncApp />
-      </Provider>
+      // </Provider>
     )
   }
 }
