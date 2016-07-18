@@ -66,7 +66,7 @@ export default class Stats extends Component {
           <h2 style={HeaderStyle}>{this.props.selectedPlayerStats.selectedPlayerStats.school}</h2>
       </div>
       <div>
-        <div onClick={this.getAdvancedStats.bind(this, this.props)}>Advanced Stats</div>
+        <a href="/#/viz">Advanced Stats</a>
       </div>
     </div>
     )

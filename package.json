@@ -12,6 +12,7 @@
   "dependencies": {
     "immutable": "^3.7.5",
     "react": "^0.14.2",
+    "react-d3-basic": "^1.6.11",
     "react-dom": "^0.14.2",
     "react-redux": "^4.0.0",
     "redux": "^3.0.4",

@@ -5,6 +5,7 @@ export const RECEIVE_PLAYER_DATA = 'RECEIVE_PLAYER_DATA'
 export const FIND_PLAYER = 'FIND_PLAYER'
 export const FIND_PLAYER_STATS = 'FIND_PLAYER_STATS'
 export const SET_PLAYER_LIST = 'SET_PLAYER_LIST'
+export const SET_SHOT_STATS = 'SET_SHOT_STATS'
 
 // 4 //
 function findPlayer(playerName, playerList) {
@@ -33,6 +34,14 @@ export function setPlayerList(playerList) {
   return {
     type: SET_PLAYER_LIST,
     playerList
+  }
+}
+
+function setShotStats(shotStats) {
+  console.log('set shot stats')
+  return {
+    type: SET_SHOT_STATS,
+    shotStats
   }
 }
 
@@ -86,13 +95,18 @@ export function getPlayerList() {
   }
 }
 
+// NEED TO GET STATE INTO THIS FUNCTION
+// FUNCTION WILL NOT FIRE WHEN INSIDE RETURN DEFAULT FUNCTION
 // //////////////////////////////////////////////////
 export function advancedStatsAction(state) {
-  // return dispatch => {
+  console.log(state)
+  return (dispatch, getState) => {
+    var something = getState()
+    console.log(something)
     nba.api.shots({playerId: state.selectedPlayerStats.selectedPlayerStats.personId,
                   teamId: '00'}, (err, response) => {
-      console.log(response)
-        // dispatch(findPlayerStats(response))
+                  console.log(response)
+                  dispatch(setShotStats(response))
       })
-  // }
+  }
 }

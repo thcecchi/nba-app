@@ -4,7 +4,7 @@ import React from 'react'
 import { render } from 'react-dom'
 import { Router, Route, hashHistory } from 'react-router'
 import Root from './containers/Root'
-import Chart from './containers/Chart'
+import ChartContainer from './containers/ChartContainer'
 
 // render(
 //   <Root />,
@@ -14,6 +14,6 @@ import Chart from './containers/Chart'
 render((
 <Router history={hashHistory}>
     <Route path="/" component={Root} />
-    <Route path="/viz" component={Chart} />
+    <Route path="/viz" component={ChartContainer} />
   </Router>
 ), document.getElementById('root'));

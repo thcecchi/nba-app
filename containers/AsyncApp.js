@@ -8,34 +8,18 @@ class AsyncApp extends Component {
   constructor(props) {
     super(props)
     this.handleChange = this.handleChange.bind(this)
-    // this.handleRefreshClick = this.handleRefreshClick.bind(this)
   }
 
   componentDidMount() {
     const { dispatch, selectedSubreddit } = this.props
-    // dispatch(fetchPostsIfNeeded(selectedSubreddit))
     dispatch(getPlayerList())
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   console.log(nextProps)
-  //   if (nextProps.selectedSubreddit !== this.props.selectedSubreddit) {
-  //     const { dispatch, selectedSubreddit } = nextProps
-  //     dispatch(fetchPostsIfNeeded(selectedSubreddit))
-  //   }
-  // }
-
-  handleChange(nextSubreddit) {
-    this.props.dispatch(selectSubreddit(nextSubreddit))
+  handleChange(state) {
+    // console.log('HANDLE CHANGE')
+    // console.log(state)
+    // this.setState(state)
   }
-
-  // handleRefreshClick(e) {
-  //   e.preventDefault()
-  //
-  //   const { dispatch, selectedSubreddit } = this.props
-  //   // dispatch(invalidateSubreddit(selectedSubreddit))
-  //   dispatch(fetchPostsIfNeeded(selectedSubreddit))
-  // }
 
   render() {
     const { state, isFetching, lastUpdated, dispatch, getState, selectedPlayerStats } = this.props
