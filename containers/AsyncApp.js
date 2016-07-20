@@ -11,7 +11,7 @@ class AsyncApp extends Component {
   }
 
   componentDidMount() {
-    const { dispatch, selectedSubreddit } = this.props
+    const { dispatch } = this.props
     dispatch(getPlayerList())
   }
 

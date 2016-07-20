@@ -12,7 +12,7 @@ class Chart extends Component {
 
   componentDidMount() {
     const { dispatch } = this.props
-    advancedStatsAction()
+    dispatch(advancedStatsAction(this.props.selectedPlayer.selectedPlayer))
   }
 
   handleChange(state) {
@@ -37,7 +37,6 @@ class Chart extends Component {
         }
         {state.selectedPlayerStats.fetched == true &&
           <div>
-            <Graphs graphData={graphData} />
           </div>
         }
       </div>

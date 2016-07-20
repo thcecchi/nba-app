@@ -85,9 +85,8 @@ function receivePlayerData(state) {
 // 1 //
 export function getPlayerList() {
   console.log('get player list')
-  var nbaAPI = nba
   return dispatch => {
-    nbaAPI.api.playersInfo({}, (err, response) => {
+    nba.api.playersInfo({}, (err, response) => {
       var itemList = response.resultSets[0].rowSet;
       console.log(itemList)
       dispatch(setPlayerList(itemList))
@@ -95,15 +94,14 @@ export function getPlayerList() {
   }
 }
 
-// NEED TO GET STATE INTO THIS FUNCTION
 // FUNCTION WILL NOT FIRE WHEN INSIDE RETURN DEFAULT FUNCTION
 // //////////////////////////////////////////////////
-export function advancedStatsAction(state) {
-  console.log(state)
-  return (dispatch, getState) => {
-    var something = getState()
-    console.log(something)
-    nba.api.shots({playerId: state.selectedPlayerStats.selectedPlayerStats.personId,
+export function advancedStatsAction(currentPlayerId) {
+  console.log('advanced stats')
+  console.log(currentPlayerId)
+  return dispatch => {
+    console.log('dispatched')
+    nba.api.shots({playerId: currentPlayerId,
                   teamId: '00'}, (err, response) => {
                   console.log(response)
                   dispatch(setShotStats(response))
