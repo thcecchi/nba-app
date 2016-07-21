@@ -2,7 +2,7 @@ import Immutable from 'immutable'
 import nba from 'nba'
 import { combineReducers } from 'redux'
 import {
-  FIND_PLAYER, FIND_PLAYER_STATS, SET_PLAYER_LIST, RECEIVE_PLAYER_DATA
+  FIND_PLAYER, FIND_PLAYER_STATS, SET_PLAYER_LIST, RECEIVE_PLAYER_DATA, SET_SHOT_STATS
 } from '../actions/actions'
 
 // 2 //
@@ -46,6 +46,21 @@ function selectedPlayerStats(state = {}, action) {
   }
 }
 
+// 4 //
+function playerShotStats(state = {}, action) {
+  switch (action.type) {
+  case SET_SHOT_STATS:
+    console.log('set player shots stats reducer')
+    console.log(action.shotStats)
+    return Object.assign({}, state, {
+        playerShots: action.shotStats,
+        fetched: true
+      });
+  default:
+    return state
+  }
+}
+
 // 1 //
 function playerList(state = {
   isFetching: false,
@@ -69,7 +84,8 @@ function playerList(state = {
 const rootReducer = combineReducers({
   selectedPlayer,
   playerList,
-  selectedPlayerStats
+  selectedPlayerStats,
+  playerShotStats
 })
 
 export default rootReducer

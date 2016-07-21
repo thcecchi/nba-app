@@ -37,6 +37,7 @@ export function setPlayerList(playerList) {
   }
 }
 
+// 7 //
 function setShotStats(shotStats) {
   console.log('set shot stats')
   return {
