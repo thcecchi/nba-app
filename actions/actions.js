@@ -95,8 +95,6 @@ export function getPlayerList() {
   }
 }
 
-// FUNCTION WILL NOT FIRE WHEN INSIDE RETURN DEFAULT FUNCTION
-// //////////////////////////////////////////////////
 export function advancedStatsAction(currentPlayerId) {
   console.log('advanced stats')
   console.log(currentPlayerId)

@@ -53,8 +53,7 @@ function playerShotStats(state = {}, action) {
     console.log('set player shots stats reducer')
     console.log(action.shotStats)
     return Object.assign({}, state, {
-        playerShots: action.shotStats,
-        fetched: true
+        playerShots: action.shotStats
       });
   default:
     return state

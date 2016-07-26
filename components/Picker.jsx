@@ -10,7 +10,7 @@ var pageHeaderTextStyle = {
 };
 
 var pageHeaderContainerSyle = {
-  backgroundColor: "#92F22A",
+  backgroundColor: "#47D2E9",
   position: "absolute",
   top: 0,
   width: "100%",
