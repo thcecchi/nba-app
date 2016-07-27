@@ -15,12 +15,19 @@ class Chart extends Component {
     dispatch(advancedStatsAction(this.props.selectedPlayer.selectedPlayer))
   }
 
+  componentWillReceiveProps(state) {
+    console.log('setting state')
+    console.log(state)
+    this.setState(state.state)
+  }
+
   handleChange(state) {
     this.setState(state)
   }
 
   render() {
     const { state, lastUpdated, dispatch, getState, playerShotStats } = this.props
+    console.log(playerShotStats)
     return (
       <div>
         <Picker onChange={e => {
@@ -29,10 +36,10 @@ class Chart extends Component {
             e.target.value = ''
           }
         }}/>
-        {!playerShotStats &&
+        {state.playerShotStats.playerShots ?
           <div>
             <Graphs playerShotStats={playerShotStats} />
-          </div>
+          </div> : <p>Loading...</p>
         }
 
       </div>

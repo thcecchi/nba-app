@@ -52,8 +52,94 @@ function playerShotStats(state = {}, action) {
   case SET_SHOT_STATS:
     console.log('set player shots stats reducer')
     console.log(action.shotStats)
+    // BUILD CHART DATA HERE
+    const shotObj = {
+      lessThan8: {
+        total: [],
+        made: [],
+        percent: ''
+      },
+      eightTo16: {
+        total: [],
+        made: [],
+        percent: ''
+      },
+      sixteenTo24: {
+          total: [],
+          made: [],
+          percent: ''
+      },
+      twentyfourPlus: {
+          total: [],
+          made: [],
+          percent: ''
+      }
+    }
+
+    action.shotStats.shot_Chart_Detail.forEach(function(shot) {
+      if (shot.shotZoneRange == "Less Than 8 ft.") {
+        shotObj.lessThan8.total.push(shot)
+      }
+
+      else if (shot.shotZoneRange == "8-16 ft.") {
+        shotObj.eightTo16.total.push(shot)
+      }
+
+      else if (shot.shotZoneRange == "16-24 ft.") {
+        shotObj.sixteenTo24.total.push(shot)
+      }
+
+      else if (shot.shotZoneRange == "24+ ft.") {
+        shotObj.twentyfourPlus.total.push(shot)
+      }
+    });
+
+    shotObj.lessThan8.total.forEach(function(shot) {
+      if (shot.eventType == "Made Shot") {
+        shotObj.lessThan8.made.push(shot)
+      }
+    });
+
+    shotObj.eightTo16.total.forEach(function(shot) {
+      if (shot.eventType == "Made Shot") {
+        shotObj.eightTo16.made.push(shot)
+      }
+    });
+
+    shotObj.sixteenTo24.total.forEach(function(shot) {
+      if (shot.eventType == "Made Shot") {
+        shotObj.sixteenTo24.made.push(shot)
+      }
+    });
+
+    shotObj.twentyfourPlus.total.forEach(function(shot) {
+      if (shot.eventType == "Made Shot") {
+        shotObj.twentyfourPlus.made.push(shot)
+      }
+    });
+
+    shotObj.lessThan8.percent = parseInt(((shotObj.lessThan8.made.length / shotObj.lessThan8.total.length) * 100).toFixed(2));
+    shotObj.eightTo16.percent = parseInt(((shotObj.eightTo16.made.length / shotObj.eightTo16.total.length) * 100).toFixed(2));
+    shotObj.sixteenTo24.percent = parseInt(((shotObj.sixteenTo24.made.length / shotObj.sixteenTo24.total.length) * 100).toFixed(2));
+    shotObj.twentyfourPlus.percent = parseInt(((shotObj.twentyfourPlus.made.length / shotObj.twentyfourPlus.total.length) * 100).toFixed(2));
+
+    const shotArr = [shotObj.lessThan8.percent, shotObj.eightTo16.percent, shotObj.sixteenTo24.percent, shotObj.twentyfourPlus.percent]
+    console.log(shotObj)
+
     return Object.assign({}, state, {
-        playerShots: action.shotStats
+        playerShots: shotArr,
+        playerName: action.shotStats.shot_Chart_Detail[0].playerName,
+        playerId: action.shotStats.shot_Chart_Detail[0].playerId,
+        config: {
+          chart: {
+              type: 'pie',
+              backgroundColor: '#5a5a5a'
+          },
+          series: [{
+              name: 'Make percentage',
+              data: shotArr
+          }]
+        }
       });
   default:
     return state

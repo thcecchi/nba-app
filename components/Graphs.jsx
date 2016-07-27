@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react'
 var ReactDOM = require('react-dom');
-var PieChart = require('react-d3-basic').PieChart;
+const ReactHighcharts = require('react-highcharts');
 import { advancedStatsAction } from '../actions/actions'
 
 // Style //
@@ -39,43 +39,12 @@ var statsHeaderStyle = {
   paddingBottom: "10px"
 };
 
- var width = 700,
-   height = 400,
-   value = function(d) {
-     if (d.eventType == "Made Shot")
-     return +d.eventType;
-   },
-   name = function(d) {
-     return d.actionType;
-   },
-   chartSeries = [
-     {
-       "field": "In The Paint (Non-RA)",
-       "name": "In da paint"
-     },
-     {
-       "field": "Restricted Area",
-       "name": "Restricted area"
-     },
-     {
-       "field": "Mid-Range",
-       "name": "Mid-range"
-     }
-   ]
-
 export default class Graphs extends Component {
 
   render() {
     return (
     <div>
-      <PieChart
-        data= {this.props.playerShotStats.playerShotStats.playerShots.shot_Chart_Detail}
-        width= {width}
-        height= {height}
-        chartSeries= {chartSeries}
-        value = {value}
-        name = {name}
-      />
+      <ReactHighcharts config = {this.props.playerShotStats.config}></ReactHighcharts>
       <a href="/#/">Advanced Stats</a>
     </div>
 
