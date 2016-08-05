@@ -6,6 +6,7 @@ export const FIND_PLAYER = 'FIND_PLAYER'
 export const FIND_PLAYER_STATS = 'FIND_PLAYER_STATS'
 export const SET_PLAYER_LIST = 'SET_PLAYER_LIST'
 export const SET_SHOT_STATS = 'SET_SHOT_STATS'
+export const SWITCH_SHOT_RANGE = 'SWITCH_SHOT_RANGE'
 
 // 4 //
 function findPlayer(playerName, playerList) {
@@ -43,6 +44,15 @@ function setShotStats(shotStats) {
   return {
     type: SET_SHOT_STATS,
     shotStats
+  }
+}
+
+function switchShotRange(shotRange, shotObj) {
+  console.log('switching shot range')
+  return {
+    type: SWITCH_SHOT_RANGE,
+    shotRange,
+    shotObj
   }
 }
 
@@ -105,5 +115,14 @@ export function advancedStatsAction(currentPlayerId) {
                   console.log(response)
                   dispatch(setShotStats(response))
       })
+  }
+}
+
+// change shot range
+export function changeShotRange(shotRange, shotObj) {
+  console.log('change shot range to ' + shotRange)
+  console.log(shotObj)
+  return dispatch => {
+    dispatch(switchShotRange(shotRange, shotObj))
   }
 }

@@ -2,7 +2,7 @@ import Immutable from 'immutable'
 import nba from 'nba'
 import { combineReducers } from 'redux'
 import {
-  FIND_PLAYER, FIND_PLAYER_STATS, SET_PLAYER_LIST, RECEIVE_PLAYER_DATA, SET_SHOT_STATS
+  FIND_PLAYER, FIND_PLAYER_STATS, SET_PLAYER_LIST, RECEIVE_PLAYER_DATA, SET_SHOT_STATS, SWITCH_SHOT_RANGE
 } from '../actions/actions'
 
 // 2 //
@@ -51,7 +51,7 @@ function playerShotStats(state = {}, action) {
   switch (action.type) {
   case SET_SHOT_STATS:
     console.log('set player shots stats reducer')
-    console.log(action.shotStats)
+
     // BUILD CHART DATA HERE
     const shotObj = {
       lessThan8: {
@@ -75,6 +75,7 @@ function playerShotStats(state = {}, action) {
           percent: ''
       }
     }
+
 
     action.shotStats.shot_Chart_Detail.forEach(function(shot) {
       if (shot.shotZoneRange == "Less Than 8 ft.") {
@@ -118,29 +119,45 @@ function playerShotStats(state = {}, action) {
       }
     });
 
-    shotObj.lessThan8.percent = parseInt(((shotObj.lessThan8.made.length / shotObj.lessThan8.total.length) * 100).toFixed(2));
-    shotObj.eightTo16.percent = parseInt(((shotObj.eightTo16.made.length / shotObj.eightTo16.total.length) * 100).toFixed(2));
-    shotObj.sixteenTo24.percent = parseInt(((shotObj.sixteenTo24.made.length / shotObj.sixteenTo24.total.length) * 100).toFixed(2));
-    shotObj.twentyfourPlus.percent = parseInt(((shotObj.twentyfourPlus.made.length / shotObj.twentyfourPlus.total.length) * 100).toFixed(2));
 
-    const shotArr = [shotObj.lessThan8.percent, shotObj.eightTo16.percent, shotObj.sixteenTo24.percent, shotObj.twentyfourPlus.percent]
-    console.log(shotObj)
+    shotObj.lessThan8.percent = parseInt(((shotObj.lessThan8.made.length / shotObj.lessThan8.total.length) * 100).toFixed(2));
+    shotObj.lessThan8.remainder = 100 - shotObj.lessThan8.percent;
+
+    shotObj.eightTo16.percent = parseInt(((shotObj.eightTo16.made.length / shotObj.eightTo16.total.length) * 100).toFixed(2));
+    shotObj.eightTo16.remainder = 100 - shotObj.eightTo16.percent;
+
+    shotObj.sixteenTo24.percent = parseInt(((shotObj.sixteenTo24.made.length / shotObj.sixteenTo24.total.length) * 100).toFixed(2));
+    shotObj.sixteenTo24.remainder = 100 - shotObj.sixteenTo24.percent;
+
+    shotObj.twentyfourPlus.percent = parseInt(((shotObj.twentyfourPlus.made.length / shotObj.twentyfourPlus.total.length) * 100).toFixed(2));
+    shotObj.twentyfourPlus.remainder = 100 - shotObj.twentyfourPlus.percent;
+
+    const mainShotObj = {
+                      lessThan8: {
+                        percent: shotObj.lessThan8.percent,
+                        remainder: shotObj.lessThan8.remainder
+                      }
+                    }
 
     return Object.assign({}, state, {
-        playerShots: shotArr,
+        playerShotPercents: mainShotObj,
+        playerAllShots: shotObj,
         playerName: action.shotStats.shot_Chart_Detail[0].playerName,
-        playerId: action.shotStats.shot_Chart_Detail[0].playerId,
-        config: {
-          chart: {
-              type: 'pie',
-              backgroundColor: '#5a5a5a'
-          },
-          series: [{
-              name: 'Make percentage',
-              data: shotArr
-          }]
-        }
+        playerId: action.shotStats.shot_Chart_Detail[0].playerId
       });
+  default:
+    return state
+  }
+}
+
+function switchPlayerShotRange(state = { }, action) {
+  switch (action.type) {
+  case SWITCH_SHOT_RANGE:
+    console.log('switching around the shot range graph')
+    
+    return Object.assign({}, state, {
+      playerPercents: 'true'
+    })
   default:
     return state
   }
@@ -170,7 +187,8 @@ const rootReducer = combineReducers({
   selectedPlayer,
   playerList,
   selectedPlayerStats,
-  playerShotStats
+  playerShotStats,
+  switchPlayerShotRange
 })
 
 export default rootReducer

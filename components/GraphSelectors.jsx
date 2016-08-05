@@ -1,6 +1,8 @@
 import React, { PropTypes, Component } from 'react'
+import { connect } from 'react-redux';
 var ReactDOM = require('react-dom');
 import { VictoryPie } from "victory";
+import { changeShotRange } from '../actions/actions'
 
 // Style //
 var nameContainerStyle = {
@@ -38,24 +40,36 @@ var statsHeaderStyle = {
   paddingBottom: "10px"
 };
 
-export default class Graphs extends Component {
+let createHandlers = function(dispatch) {
+  let onClick = function(node, data) {
+    dispatch(actions.nodeClicked(data))
+  };
+
+  return {
+    onClick
+  };
+}
+
+
+export default class GraphSelectors extends Component {
+  constructor(props) {
+    super(props);
+    this.handlers = createHandlers(this.props.dispatch);
+  }
   render() {
     return (
-    <div>
-      <VictoryPie
-        data={[
-        {x: 'Missed ' + this.props.playerShotStats.playerShotPercents.lessThan8.remainder + '%', y: this.props.playerShotStats.playerShotPercents.lessThan8.remainder},
-        {x: 'Made ' + this.props.playerShotStats.playerShotPercents.lessThan8.percent + '%', y: this.props.playerShotStats.playerShotPercents.lessThan8.percent}
-        ]}
-      />
-
-      <a href="/#/">Advanced Stats</a>
-    </div>
-
+       <div>
+          <h6>>8'</h6>
+          <h6 onClick={() => this.props.dispatch(changeShotRange('eightTo16', this.props.playerShotStats.playerAllShots))}>8'-16'</h6>
+          <h6>16'-24'</h6>
+          <h6>24'+</h6>
+       </div>
     )
   }
 }
 
-Graphs.propTypes = {
+GraphSelectors.propTypes = {
   playerShotStats: PropTypes.object.isRequired
 }
+
+export default connect()(GraphSelectors);

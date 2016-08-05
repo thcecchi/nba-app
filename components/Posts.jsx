@@ -1,5 +1,4 @@
 import React, { PropTypes, Component } from 'react'
-import { advancedStatsAction } from '../actions/actions'
 
 var nameContainerStyle = {
   display: "block",
@@ -37,10 +36,6 @@ var statsHeaderStyle = {
 };
 
 export default class Stats extends Component {
-
-  getAdvancedStats(state) {
-    advancedStatsAction(state)
-  }
 
   render() {
     return (
