@@ -2,19 +2,19 @@ import React, { Component, PropTypes } from 'react'
 
 var pageHeaderTextStyle = {
   textAlign: 'center',
-  color: '#ffffff',
+  color: '#000',
   fontFamily: 'Roboto',
   letterSpacing: 1.75,
   fontWeight: 500,
-  fontSize: "24px"
+  fontSize: "24px",
+  zIndex: "2"
 };
 
 var pageHeaderContainerSyle = {
-  backgroundColor: "#47D2E9",
+  backgroundColor: "#fff",
   position: "absolute",
   top: 0,
-  width: "100%",
-  boxShadow: "0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)"
+  width: "100%"
 };
 
 var inputStyle = {
@@ -26,10 +26,19 @@ var inputStyle = {
   boxShadow: "0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)",
   border: "none",
   fontSize: "30px",
+  fontWeight: 100,
   borderRadius: "5px",
   letterSpacing: 1.5,
   fontFamily: 'Roboto'
 };
+
+var svgStyle = {
+  height: "10px",
+  width: "200px",
+  margin: "0 auto",
+  backgroundColor: "rgb(153, 255, 0)",
+  zIndex: -1
+}
 
 
 export default class Picker extends Component {
@@ -40,6 +49,7 @@ export default class Picker extends Component {
     <div>
       <div style={pageHeaderContainerSyle}>
         <h1 style={pageHeaderTextStyle}>HOOPSTATS</h1>
+        <div style={svgStyle}></div>
       </div>
       <div>
          <input style={inputStyle} type="text" onKeyUp={onChange}/>
