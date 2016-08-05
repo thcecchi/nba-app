@@ -16,32 +16,22 @@ class AsyncApp extends Component {
   }
 
   handleChange(state) {
-    // console.log('HANDLE CHANGE')
-    // console.log(state)
-    // this.setState(state)
+    this.setState(state)
   }
 
   render() {
     const { state, isFetching, lastUpdated, dispatch, getState, selectedPlayerStats } = this.props
     return (
       <div>
-        <Picker onChange={e => {
-          if(e.keyCode == 13){
-            dispatch(searchPlayer(e.target.value, state.playerList.items))
-            e.target.value = ''
-          }
-        }}/>
-        <p>
-          {lastUpdated &&
-            <span>
-              Last updated at {new Date(lastUpdated).toLocaleTimeString()}.
-              {' '}
-            </span>
-          }
-        </p>
-        {isFetching &&
-          <h2>Loading...</h2>
+        {state.playerList.isFetching == false ?
+          <Picker onChange={e => {
+            if(e.keyCode == 13){
+              dispatch(searchPlayer(e.target.value, state.playerList.items))
+              e.target.value = ''
+            }
+          }}/> : <p>Loading...</p>
         }
+
         {state.selectedPlayerStats.fetched == true &&
           <div>
             <Stats selectedPlayerStats={selectedPlayerStats} />
@@ -53,7 +43,7 @@ class AsyncApp extends Component {
 }
 
 AsyncApp.propTypes = {
-  selectedPlayer: PropTypes.number.isRequired,
+  selectedPlayer: PropTypes.object.isRequired,
   dispatch: PropTypes.func.isRequired,
   selectedPlayerStats: PropTypes.object.isRequired,
 }

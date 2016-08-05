@@ -119,28 +119,7 @@ function playerShotStats(state = {}, action) {
       }
     });
 
-
-    shotObj.lessThan8.percent = parseInt(((shotObj.lessThan8.made.length / shotObj.lessThan8.total.length) * 100).toFixed(2));
-    shotObj.lessThan8.remainder = 100 - shotObj.lessThan8.percent;
-
-    shotObj.eightTo16.percent = parseInt(((shotObj.eightTo16.made.length / shotObj.eightTo16.total.length) * 100).toFixed(2));
-    shotObj.eightTo16.remainder = 100 - shotObj.eightTo16.percent;
-
-    shotObj.sixteenTo24.percent = parseInt(((shotObj.sixteenTo24.made.length / shotObj.sixteenTo24.total.length) * 100).toFixed(2));
-    shotObj.sixteenTo24.remainder = 100 - shotObj.sixteenTo24.percent;
-
-    shotObj.twentyfourPlus.percent = parseInt(((shotObj.twentyfourPlus.made.length / shotObj.twentyfourPlus.total.length) * 100).toFixed(2));
-    shotObj.twentyfourPlus.remainder = 100 - shotObj.twentyfourPlus.percent;
-
-    const mainShotObj = {
-                      lessThan8: {
-                        percent: shotObj.lessThan8.percent,
-                        remainder: shotObj.lessThan8.remainder
-                      }
-                    }
-
     return Object.assign({}, state, {
-        playerShotPercents: mainShotObj,
         playerAllShots: shotObj,
         playerName: action.shotStats.shot_Chart_Detail[0].playerName,
         playerId: action.shotStats.shot_Chart_Detail[0].playerId
@@ -154,9 +133,34 @@ function switchPlayerShotRange(state = { }, action) {
   switch (action.type) {
   case SWITCH_SHOT_RANGE:
     console.log('switching around the shot range graph')
-    
+    console.log(action.shotRange)
+
+    const shotObj = action.shotObj
+
+    const shotPercentObj = {
+                        percent: 0,
+                        remainder: 0
+                      }
+
+    if(action.shotRange == 'lessThan8') {
+      shotPercentObj.percent = parseInt(((shotObj.lessThan8.made.length / shotObj.lessThan8.total.length) * 100).toFixed(2));
+      shotPercentObj.remainder = 100 - shotPercentObj.percent;
+
+    } else if (action.shotRange == 'eightTo16') {
+      shotPercentObj.percent = parseInt(((shotObj.eightTo16.made.length / shotObj.eightTo16.total.length) * 100).toFixed(2));
+      shotPercentObj.remainder = 100 - shotPercentObj.percent;
+
+    } else if (action.shotRange == 'sixteenTo24') {
+      shotPercentObj.percent = parseInt(((shotObj.sixteenTo24.made.length / shotObj.sixteenTo24.total.length) * 100).toFixed(2));
+      shotPercentObj.remainder = 100 - shotPercentObj.percent;
+
+    } else if (action.shotRange == 'twentyfourPlus') {
+      shotPercentObj.percent = parseInt(((shotObj.twentyfourPlus.made.length / shotObj.twentyfourPlus.total.length) * 100).toFixed(2));
+      shotPercentObj.remainder = 100 - shotPercentObj.percent;
+    }
+
     return Object.assign({}, state, {
-      playerPercents: 'true'
+      playerPercents: shotPercentObj
     })
   default:
     return state
@@ -165,8 +169,7 @@ function switchPlayerShotRange(state = { }, action) {
 
 // 1 //
 function playerList(state = {
-  isFetching: false,
-  didInvalidate: false,
+  isFetching: true,
   items: []
 }, action) {
   switch (action.type) {
@@ -174,9 +177,7 @@ function playerList(state = {
     console.log('setting up the player list')
     return Object.assign({}, state, {
       isFetching: false,
-      didInvalidate: false,
-      items: action.playerList,
-      lastUpdated: action.receivedAt
+      items: action.playerList
     })
   default:
     return state

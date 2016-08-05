@@ -9,11 +9,10 @@ export default class Root extends Component {
   render() {
     document.body.style.backgroundColor = "#5a5a5a";
     document.body.style.width = "100%";
+    document.body.style.margin = "0";
 
     return (
-      // <Provider store={store}>
         <AsyncApp />
-      // </Provider>
     )
   }
 }

@@ -10,11 +10,6 @@ import ChartContainer from './containers/ChartContainer'
 
 const store = configureStore()
 
-// render(
-//   <Root />,
-//   document.getElementById('root')
-// )
-
 render((
 <Provider store={store}>
   <Router history={hashHistory}>

@@ -59,10 +59,10 @@ export default class GraphSelectors extends Component {
   render() {
     return (
        <div>
-          <h6>>8'</h6>
+          <h6 onClick={() => this.props.dispatch(changeShotRange('lessThan8', this.props.playerShotStats.playerAllShots))}>>8'</h6>
           <h6 onClick={() => this.props.dispatch(changeShotRange('eightTo16', this.props.playerShotStats.playerAllShots))}>8'-16'</h6>
-          <h6>16'-24'</h6>
-          <h6>24'+</h6>
+          <h6 onClick={() => this.props.dispatch(changeShotRange('sixteenTo24', this.props.playerShotStats.playerAllShots))}>16'-24'</h6>
+          <h6 onClick={() => this.props.dispatch(changeShotRange('twentyfourPlus', this.props.playerShotStats.playerAllShots))}>24'+</h6>
        </div>
     )
   }

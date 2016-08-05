@@ -12,12 +12,12 @@ class Chart extends Component {
 
   componentDidMount() {
     const { dispatch } = this.props
+      console.log('this player shots' + this.props.playerShotStats)
       dispatch(changeShotRange('lessThan8', this.props.playerShotStats.playerAllShots))
   }
 
   componentWillReceiveProps(state) {
-    console.log('setting state')
-    console.log(state)
+    console.log('setting graph container state')
     this.setState(state.state)
   }
 
@@ -26,15 +26,15 @@ class Chart extends Component {
   }
 
   render() {
-    const { state, lastUpdated, dispatch, getState, playerShotStats } = this.props
-    console.log(playerShotStats)
-    console.log(this.props)
+    const { state, lastUpdated, dispatch, getState, playerShotStats, switchPlayerShotRange } = this.props
+    console.log('switch player shot range')
+    console.log(switchPlayerShotRange)
     return (
       <div>
         {state.playerShotStats.playerAllShots ?
           <div>
             <GraphSelectors playerShotStats={playerShotStats} />
-            <Graphs playerShotStats={playerShotStats} />
+            <Graphs switchPlayerShotRange={switchPlayerShotRange} />
           </div> : <p>Loading...</p>
         }
 
@@ -47,17 +47,19 @@ Chart.propTypes = {
   selectedPlayer: PropTypes.object.isRequired,
   dispatch: PropTypes.func.isRequired,
   playerShotStats: PropTypes.object.isRequired,
+  switchPlayerShotRange: PropTypes.object.isRequired,
 }
 
 function mapStateToProps(state) {
   console.log(state)
-  const { selectedPlayer,  getPlayerList, selectedPlayerStats, playerShotStats} = state
+  const { selectedPlayer,  getPlayerList, selectedPlayerStats, playerShotStats, switchPlayerShotRange} = state
 
   return {
     selectedPlayer,
     getPlayerList,
     selectedPlayerStats,
     playerShotStats,
+    switchPlayerShotRange,
     state
   }
 }

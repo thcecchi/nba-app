@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { advancedStatsAction, changeShotRange } from '../actions/actions'
+import { advancedStatsAction } from '../actions/actions'
 import Picker from '../components/Picker'
 import GraphContainer from './GraphContainer'
 
@@ -16,8 +16,7 @@ class Chart extends Component {
   }
 
   componentWillReceiveProps(state) {
-    console.log('setting state')
-    console.log(state)
+    console.log('setting chart state')
     this.setState(state.state)
   }
 
@@ -27,7 +26,6 @@ class Chart extends Component {
 
   render() {
     const { state, lastUpdated, dispatch, getState, playerShotStats } = this.props
-    console.log(playerShotStats)
     console.log(this.props)
     return (
       <div>
