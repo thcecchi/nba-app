@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { selectedPlayer, searchPlayer, getPlayerList } from '../actions/actions'
+import Header from '../components/Header'
 import Picker from '../components/Picker'
 import Stats from '../components/Posts'
 
@@ -23,6 +24,7 @@ class AsyncApp extends Component {
     const { state, isFetching, lastUpdated, dispatch, getState, selectedPlayerStats } = this.props
     return (
       <div>
+        <Header />
         {state.playerList.isFetching == false ?
           <Picker onChange={e => {
             if(e.keyCode == 13){

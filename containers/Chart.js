@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { advancedStatsAction } from '../actions/actions'
+import Header from '../components/Header'
 import Picker from '../components/Picker'
 import GraphContainer from './GraphContainer'
 
@@ -29,6 +30,7 @@ class Chart extends Component {
     console.log(this.props)
     return (
       <div>
+      ``<Header />
         <Picker onChange={e => {
           if(e.keyCode == 13){
             dispatch(searchPlayer(e.target.value, state.playerList.items))
