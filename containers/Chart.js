@@ -30,7 +30,7 @@ class Chart extends Component {
     console.log(this.props)
     return (
       <div>
-      ``<Header />
+      <Header />
         <Picker onChange={e => {
           if(e.keyCode == 13){
             dispatch(searchPlayer(e.target.value, state.playerList.items))

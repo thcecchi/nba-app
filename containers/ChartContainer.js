@@ -7,8 +7,6 @@ import Chart from './Chart'
 
 export default class Root extends Component {
   render() {
-    document.body.style.backgroundColor = "#5a5a5a";
-    document.body.style.width = "100%";
 
     return (
       // <Provider store={store}>

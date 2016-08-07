@@ -4,6 +4,7 @@ import { selectedPlayer, searchPlayer, getPlayerList } from '../actions/actions'
 import Header from '../components/Header'
 import Picker from '../components/Picker'
 import Stats from '../components/Posts'
+import ChartButton from '../components/ChartButton'
 
 class AsyncApp extends Component {
   constructor(props) {
@@ -37,6 +38,7 @@ class AsyncApp extends Component {
         {state.selectedPlayerStats.fetched == true &&
           <div>
             <Stats selectedPlayerStats={selectedPlayerStats} />
+            <ChartButton />
           </div>
         }
       </div>
