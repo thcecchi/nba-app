@@ -55,10 +55,11 @@ export default class Stats extends Component {
        fontSize: "28px",
        display: "block",
        margin: "0",
-       paddingTop: "20px"
+       paddingTop: "23px"
      },
      statsBodyContainerStyle: {
-      height: "75px",
+      minHeight: "75px",
+      paddingBottom: "5px",
       width: "300px",
       margin: "0 auto",
       borderTop: "20px solid rgb(153, 255, 0)",

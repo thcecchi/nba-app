@@ -1,10 +1,12 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { advancedStatsAction } from '../actions/actions'
+import { Router, Route, hashHistory, pushState } from 'react-router'
+import { selectedPlayer, searchPlayer, advancedStatsAction } from '../actions/actions'
 import Header from '../components/Header'
 import Picker from '../components/Picker'
 import ChartButton from '../components/ChartButton'
 import GraphContainer from './GraphContainer'
+import Loading from '../components/Loading'
 
 class Chart extends Component {
   constructor(props) {
@@ -45,6 +47,7 @@ class Chart extends Component {
         <Picker onChange={e => {
           if(e.keyCode == 13){
             dispatch(searchPlayer(e.target.value, state.playerList.items))
+            hashHistory.pushState(null, '/#/');
             e.target.value = ''
           }
         }}/>
@@ -54,7 +57,7 @@ class Chart extends Component {
               <div style={styles.buttonContainer}>
                 <ChartButton route={"/#/"} buttonText={"Player Stats"} />
               </div>
-          </div> : <p>Loading...</p>
+          </div> : <Loading />
         }
       </div>
     )

@@ -5,6 +5,7 @@ import Header from '../components/Header'
 import Picker from '../components/Picker'
 import Stats from '../components/Posts'
 import ChartButton from '../components/ChartButton'
+import Loading from '../components/Loading'
 
 class AsyncApp extends Component {
   constructor(props) {
@@ -32,7 +33,7 @@ class AsyncApp extends Component {
               dispatch(searchPlayer(e.target.value, state.playerList.items))
               e.target.value = ''
             }
-          }}/> : <p>Loading...</p>
+          }}/> : <Loading />
         }
 
         {state.selectedPlayerStats.fetched == true &&
