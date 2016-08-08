@@ -43,7 +43,7 @@ export default class Stats extends Component {
        fontFamily: 'Roboto',
        letterSpacing: 1.75,
        fontWeight: 100,
-       fontSize: "28px",
+       fontSize: "22px",
        display: "block",
        paddingTop: "25px"
      },

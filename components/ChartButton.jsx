@@ -33,19 +33,19 @@ export default class ChartButton extends Component {
     }
   }
   render() {
-    const { value, onChange, options } = this.props
+    const { value, onChange, options, buttonProps } = this.props
     const styles = this.getStyles();
 
     return (
     <div style={styles.chartButtonContainerStyle}>
-      <a style={styles.chartButtonStyle} href="/#/viz">Advanced Stats</a>
+      <a style={styles.chartButtonStyle} href={this.props.route}>{this.props.buttonText}</a>
     </div>
     )
   }
 }
 
 ChartButton.propTypes = {
-  onChange: PropTypes.func.isRequired
+
 }
 
 module.exports = Radium(ChartButton)

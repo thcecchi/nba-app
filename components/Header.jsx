@@ -9,13 +9,7 @@ export default class Header extends Component {
        backgroundColor: "#fff",
        position: "absolute",
        top: 0,
-       width: "100%",
-       success: {
-         backgroundColor: status.success
-       },
-       error: {
-         backgroundColor: status.error
-       }
+       width: "100%"
      },
      headerText: {
        textAlign: 'center',
@@ -33,6 +27,7 @@ export default class Header extends Component {
        margin: "0 auto",
        zIndex: -1,
        borderBottom: "2px solid rgb(153, 255, 0)",
+       transition: "border-bottom .1s",
        ":hover": {
         borderBottom: "15px solid rgb(153, 255, 0)",
        }

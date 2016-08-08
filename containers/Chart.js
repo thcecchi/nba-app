@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { advancedStatsAction } from '../actions/actions'
 import Header from '../components/Header'
 import Picker from '../components/Picker'
+import ChartButton from '../components/ChartButton'
 import GraphContainer from './GraphContainer'
 
 class Chart extends Component {
@@ -25,8 +26,18 @@ class Chart extends Component {
     this.setState(state)
   }
 
+  getStyles() {
+    return {
+      buttonContainer: {
+        marginTop: "45%"
+      }
+    }
+  }
+
   render() {
     const { state, lastUpdated, dispatch, getState, playerShotStats } = this.props
+    const styles = this.getStyles();
+
     console.log(this.props)
     return (
       <div>
@@ -40,9 +51,11 @@ class Chart extends Component {
         {state.playerShotStats.playerAllShots ?
           <div>
               <GraphContainer playerShotStats={playerShotStats} />
+              <div style={styles.buttonContainer}>
+                <ChartButton route={"/#/"} buttonText={"Player Stats"} />
+              </div>
           </div> : <p>Loading...</p>
         }
-
       </div>
     )
   }

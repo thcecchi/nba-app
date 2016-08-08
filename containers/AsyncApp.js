@@ -38,7 +38,7 @@ class AsyncApp extends Component {
         {state.selectedPlayerStats.fetched == true &&
           <div>
             <Stats selectedPlayerStats={selectedPlayerStats} />
-            <ChartButton />
+            <ChartButton route={"/#/viz"} buttonText={"Shooting Stats"}/>
           </div>
         }
       </div>
