@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react'
 import { connect } from 'react-redux';
 var ReactDOM = require('react-dom');
+import Radium from 'radium'
 import { changeShotRange } from '../actions/actions'
 
 let createHandlers = function(dispatch) {
@@ -18,7 +19,13 @@ export default class GraphSelectors extends Component {
   constructor(props) {
     super(props);
     this.handlers = createHandlers(this.props.dispatch);
+    this.state = {active: false};
   }
+
+click() {
+    this.setState({active: true});
+
+}
 
   getStyles() {
     return {
@@ -39,7 +46,16 @@ export default class GraphSelectors extends Component {
         textAlign: "center",
         fontWeight: "100",
         ":hover": {
-         color: "#344146"
+          color: "#344146",
+          textDecoration: "underline"
+        },
+        "active": {
+          color: "#344146",
+          textDecoration: "underline"
+        },
+        "inactive": {
+          color: "#344146",
+          textDecoration: "none"
         }
       }
     }
@@ -50,10 +66,10 @@ export default class GraphSelectors extends Component {
 
     return (
        <div style={styles.optionsContainerStyle}>
-          <h6 style={styles.optionStyle} onClick={() => this.props.dispatch(changeShotRange('lessThan8', this.props.playerShotStats.playerAllShots))}>>8'</h6>
-          <h6 style={styles.optionStyle} onClick={() => this.props.dispatch(changeShotRange('eightTo16', this.props.playerShotStats.playerAllShots))}>8'-16'</h6>
-          <h6 style={styles.optionStyle} onClick={() => this.props.dispatch(changeShotRange('sixteenTo24', this.props.playerShotStats.playerAllShots))}>16'-24'</h6>
-          <h6 style={styles.optionStyle} onClick={() => this.props.dispatch(changeShotRange('twentyfourPlus', this.props.playerShotStats.playerAllShots))}>24'+</h6>
+          <h6 key="lessThan8" style={styles.optionStyle} onClick={() => this.props.dispatch(changeShotRange('lessThan8', this.props.playerShotStats.playerAllShots))}>>8'</h6>
+          <h6 key="eightTo16" style={styles.optionStyle} onClick={() => this.props.dispatch(changeShotRange('eightTo16', this.props.playerShotStats.playerAllShots))}>8'-16'</h6>
+          <h6 key="sixteenTo24" style={styles.optionStyle} onClick={() => this.props.dispatch(changeShotRange('sixteenTo24', this.props.playerShotStats.playerAllShots))}>16'-24'</h6>
+          <h6 key="twentyfourPlus" style={styles.optionStyle} onClick={() => this.props.dispatch(changeShotRange('twentyfourPlus', this.props.playerShotStats.playerAllShots))}>24'+</h6>
        </div>
     )
   }
@@ -63,4 +79,5 @@ GraphSelectors.propTypes = {
   playerShotStats: PropTypes.object.isRequired
 }
 
+GraphSelectors = Radium(GraphSelectors)
 export default connect()(GraphSelectors);

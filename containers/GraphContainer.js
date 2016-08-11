@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { changeShotRange } from '../actions/actions'
 import Graphs from '../components/Graphs'
 import GraphSelectors from '../components/GraphSelectors'
+import Loading from '../components/Loading'
 
 class Chart extends Component {
   constructor(props) {
@@ -35,7 +36,7 @@ class Chart extends Component {
           <div>
             <GraphSelectors playerShotStats={playerShotStats} />
             <Graphs switchPlayerShotRange={switchPlayerShotRange} />
-          </div> : <p>Loading...</p>
+          </div> : <Loading text={"Loading..."} />
         }
 
       </div>

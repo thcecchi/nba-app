@@ -25,7 +25,7 @@ export default class Loading extends Component {
 
     return (
       <div style={styles.loadingContainer}>
-        <h1 style={styles.loading}>Loading...</h1>
+        <h1 style={styles.loading}>{this.props.text}</h1>
       </div>
     )
   }

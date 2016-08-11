@@ -57,7 +57,7 @@ class Chart extends Component {
               <div style={styles.buttonContainer}>
                 <ChartButton route={"/#/"} buttonText={"Player Stats"} />
               </div>
-          </div> : <Loading />
+          </div> : <Loading text={"Loading..."} />
         }
       </div>
     )

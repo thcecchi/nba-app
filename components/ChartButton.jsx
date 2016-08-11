@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import Radium from 'radium'
 
-
 export default class ChartButton extends Component {
 
   getStyles() {

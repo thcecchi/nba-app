@@ -77,19 +77,25 @@ export function searchPlayer(playerName, playerList) {
     var capitalizedFullName = newNameArray.join(' ');
 
     dispatch(findPlayer(capitalizedFullName, playerList))
-    dispatch(receivePlayerData(getState()))
+    // dispatch(receivePlayerData(getState()))
   }
 }
 
 // 5 //
-function receivePlayerData(state) {
+export function receivePlayerData(player) {
   console.log('receivePlayerData actions')
-  console.log(state.selectedPlayer.selectedPlayer)
+  console.log(player)
     return dispatch => {
-      nba.api.playerInfo({playerId: state.selectedPlayer.selectedPlayer}, (err, response) => {
-        console.log(response)
-          dispatch(findPlayerStats(response))
-        })
+      if (player == null) {
+        dispatch(findPlayerStats(player))
+      }
+
+      else {
+        nba.api.playerInfo({playerId: player}, (err, response) => {
+          console.log(response)
+            dispatch(findPlayerStats(response))
+          })
+      }
     }
 }
 

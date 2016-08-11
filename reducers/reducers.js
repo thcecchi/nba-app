@@ -22,6 +22,11 @@ function selectedPlayer(state = {
         playerId = player[0]
       }
     })
+
+    if(playerId == 0) {
+      playerId = null
+    }
+
     return Object.assign({}, state, {
       selectedPlayer: playerId
     })
@@ -36,11 +41,20 @@ function selectedPlayerStats(state = {}, action) {
   case FIND_PLAYER_STATS:
     console.log('find player stats reducer')
     console.log(action.playerStats)
-    return Object.assign({}, state, {
+    if(action.playerStats == null) {
+      return Object.assign({}, state, {
+        selectedPlayerStats: null,
+        playerHeadlineStats: null,
+        fetched: true
+      });
+    }
+    else {
+      return Object.assign({}, state, {
         selectedPlayerStats: action.playerStats.commonPlayerInfo[0],
         playerHeadlineStats: action.playerStats.playerHeadlineStats[0],
         fetched: true
       });
+    }
   default:
     return state
   }

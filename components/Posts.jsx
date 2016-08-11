@@ -80,8 +80,8 @@ export default class Stats extends Component {
     return (
       <div>
         <div style={styles.nameContainerStyle}>
-            <h2 style={styles.HeaderStyle}>{this.props.selectedPlayerStats.selectedPlayerStats.displayFirstLast}</h2>
-            <span style={styles.subheadStyle}>{this.props.selectedPlayerStats.selectedPlayerStats.teamName}</span>
+            <h2 style={styles.HeaderStyle}>{this.props.selectedPlayerStats.selectedPlayerStats.selectedPlayerStats.displayFirstLast}</h2>
+            <span style={styles.subheadStyle}>{this.props.selectedPlayerStats.selectedPlayerStats.selectedPlayerStats.teamName}</span>
         </div>
 
         <div style={styles.statContainerStyle}>
@@ -90,7 +90,7 @@ export default class Stats extends Component {
               <span style={styles.statsHeaderStyle}>Pie%</span>
             </div>
             <div style={styles.statsBodyContainerStyle}>
-              <h2 style={styles.statsBodyStyle}>{this.props.selectedPlayerStats.playerHeadlineStats.pie}</h2>
+              <h2 style={styles.statsBodyStyle}>{this.props.selectedPlayerStats.selectedPlayerStats.playerHeadlineStats.pie}</h2>
             </div>
           </div>
 
@@ -99,7 +99,7 @@ export default class Stats extends Component {
               <span style={styles.statsHeaderStyle}>Points</span>
             </div>
             <div style={styles.statsBodyContainerStyle}>
-              <h2 style={styles.statsBodyStyle}>{this.props.selectedPlayerStats.playerHeadlineStats.pts}</h2>
+              <h2 style={styles.statsBodyStyle}>{this.props.selectedPlayerStats.selectedPlayerStats.playerHeadlineStats.pts}</h2>
             </div>
           </div>
 
@@ -108,7 +108,7 @@ export default class Stats extends Component {
               <span style={styles.statsHeaderStyle}>Assists</span>
             </div>
             <div style={styles.statsBodyContainerStyle}>
-              <h2 style={styles.statsBodyStyle}>{this.props.selectedPlayerStats.playerHeadlineStats.ast}</h2>
+              <h2 style={styles.statsBodyStyle}>{this.props.selectedPlayerStats.selectedPlayerStats.playerHeadlineStats.ast}</h2>
             </div>
           </div>
 
@@ -117,7 +117,7 @@ export default class Stats extends Component {
               <span style={styles.statsHeaderStyle}>Rebounds</span>
             </div>
             <div style={styles.statsBodyContainerStyle}>
-              <h2 style={styles.statsBodyStyle}>{this.props.selectedPlayerStats.playerHeadlineStats.reb}</h2>
+              <h2 style={styles.statsBodyStyle}>{this.props.selectedPlayerStats.selectedPlayerStats.playerHeadlineStats.reb}</h2>
             </div>
           </div>
 
@@ -126,7 +126,7 @@ export default class Stats extends Component {
               <span style={styles.statsHeaderStyle}>School</span>
             </div>
             <div style={styles.statsBodyContainerStyle}>
-              <h2 style={styles.statsBodyStyle}>{this.props.selectedPlayerStats.selectedPlayerStats.school}</h2>
+              <h2 style={styles.statsBodyStyle}>{this.props.selectedPlayerStats.selectedPlayerStats.selectedPlayerStats.school}</h2>
             </div>
           </div>
         </div>
@@ -136,7 +136,7 @@ export default class Stats extends Component {
 }
 
 Stats.propTypes = {
-  selectedPlayerStats: PropTypes.object.isRequired
+  selectedPlayerStats: PropTypes.object.isRequired,
 }
 
 module.exports = Radium(Stats)
