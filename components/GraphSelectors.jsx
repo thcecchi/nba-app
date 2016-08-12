@@ -37,7 +37,7 @@ click() {
         marginTop: "25px",
         "@media (max-width : 768px)": {
           width: "95%"
-        },
+        }
       },
       optionStyle: {
         display: "inline-block",

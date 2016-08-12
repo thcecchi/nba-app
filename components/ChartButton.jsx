@@ -16,12 +16,11 @@ export default class ChartButton extends Component {
         marginBottom: "25px",
         borderRadius: "5px",
         display: "block",
+        "@media (max-width : 460px)": {
+          width: "80%"
+        },
         ":hover": {
           background: "#7CEF00"
-        },
-        "@media (max-width : 460)": {
-          width: "95%",
-          marginTop: "150px",
         }
       },
       chartButtonStyle: {

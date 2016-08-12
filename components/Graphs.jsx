@@ -15,7 +15,8 @@ export default class Graphs extends Component {
         margin: "0 auto",
         "@media (max-width : 460px)": {
           width: "75%",
-          paddingTop: "10px"
+          paddingTop: "10px",
+          paddingBottom: "10%"
         },
       }
     }
