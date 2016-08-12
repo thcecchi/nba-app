@@ -35,13 +35,18 @@ export default class Picker extends Component {
       }
     }
   }
+
+  closeKeyboard() {
+    this.blur();
+  }
+
   render() {
     const { value, onChange, options } = this.props
     const styles = this.getStyles();
 
     return (
       <div>
-         <input style={styles.inputStyle} type="text" onKeyUp={onChange}/>
+         <input style={styles.inputStyle} type="text" onBlur={this.closeKeyboard()} onKeyUp={onChange}/>
       </div>
     )
   }
