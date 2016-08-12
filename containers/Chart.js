@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Router, Route, hashHistory, pushState } from 'react-router'
+import {Radium, StyleRoot} from 'radium'
 import { selectedPlayer, searchPlayer, advancedStatsAction } from '../actions/actions'
 import Header from '../components/Header'
 import Picker from '../components/Picker'
@@ -44,21 +45,23 @@ class Chart extends Component {
     return (
       <div>
       <Header />
-        <Picker onChange={e => {
-          if(e.keyCode == 13){
-            dispatch(searchPlayer(e.target.value, state.playerList.items))
-            hashHistory.pushState(null, '/#/');
-            e.target.value = ''
+        <StyleRoot>
+          <Picker onChange={e => {
+            if(e.keyCode == 13){
+              dispatch(searchPlayer(e.target.value, state.playerList.items))
+              hashHistory.pushState(null, '/#/');
+              e.target.value = ''
+            }
+          }}/>
+          {state.playerShotStats.playerAllShots ?
+            <div>
+                <GraphContainer playerShotStats={playerShotStats} />
+                <div style={styles.buttonContainer}>
+                  <ChartButton route={"/#/"} buttonText={"Player Stats"} />
+                </div>
+            </div> : <Loading text={"Loading..."} />
           }
-        }}/>
-        {state.playerShotStats.playerAllShots ?
-          <div>
-              <GraphContainer playerShotStats={playerShotStats} />
-              <div style={styles.buttonContainer}>
-                <ChartButton route={"/#/"} buttonText={"Player Stats"} />
-              </div>
-          </div> : <Loading text={"Loading..."} />
-        }
+        </StyleRoot>
       </div>
     )
   }

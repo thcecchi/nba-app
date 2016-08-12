@@ -18,6 +18,9 @@ export default class ChartButton extends Component {
         display: "block",
         ":hover": {
           background: "#7CEF00"
+        },
+        "@media (max-width : 460)": {
+          width: "95%"
         }
       },
       chartButtonStyle: {

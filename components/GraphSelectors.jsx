@@ -34,7 +34,10 @@ click() {
         display: "block",
         margin: "0 auto",
         marginBottom: "-25px",
-        marginTop: "25px"
+        marginTop: "25px",
+        "@media (max-width : 768px)": {
+          width: "95%"
+        },
       },
       optionStyle: {
         display: "inline-block",
@@ -48,6 +51,11 @@ click() {
         ":hover": {
           color: "#344146",
           textDecoration: "underline"
+        },
+        "@media (max-width : 768px)": {
+          width: "50%",
+          marginTop: "10px",
+          marginBottom: "20px"
         },
         "active": {
           color: "#344146",

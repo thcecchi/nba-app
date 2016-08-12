@@ -25,6 +25,12 @@ export default class Picker extends Component {
         textAlign: "center",
         ":focus": {
           outline: "none"
+        },
+        "@media (max-width : 768px)": {
+          width: "80%"
+        },
+        "@media (max-width : 460)": {
+          width: "95%"
         }
       }
     }

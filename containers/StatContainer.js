@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
+import {Radium, StyleRoot} from 'radium'
 import { selectedPlayer, searchPlayer, getPlayerList, receivePlayerData } from '../actions/actions'
 import Header from '../components/Header'
 import Picker from '../components/Picker'
@@ -45,8 +46,10 @@ class StatContainer extends Component {
 
         {state.selectedPlayerStats.selectedPlayerStats ?
           <div>
-            <Stats selectedPlayerStats={this.props} />
-            <ChartButton route={"/#/viz"} buttonText={"Shooting Stats"}/>
+            <StyleRoot>
+              <Stats selectedPlayerStats={this.props} />
+              <ChartButton route={"/#/viz"} buttonText={"Shooting Stats"}/>
+            </StyleRoot>
           </div> : <Loading text={"Player not found"} />
         }
       </div>

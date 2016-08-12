@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
+import {Radium, StyleRoot} from 'radium'
 import { selectedPlayer, searchPlayer, getPlayerList } from '../actions/actions'
 import StatContainer from './StatContainer'
 import Header from '../components/Header'
@@ -27,12 +28,14 @@ class AsyncApp extends Component {
       <div>
         <Header />
         {state.playerList.isFetching == false ?
-          <Picker onChange={e => {
-            if(e.keyCode == 13){
-              dispatch(searchPlayer(e.target.value, state.playerList.items))
-              e.target.value = ''
-            }
-          }}/> : <Loading text={"Loading..."}/>
+          <StyleRoot>
+            <Picker onChange={e => {
+              if(e.keyCode == 13){
+                dispatch(searchPlayer(e.target.value, state.playerList.items))
+                e.target.value = ''
+              }
+            }}/>
+          </StyleRoot> : <Loading text={"Loading..."}/>
         }
 
         {state.selectedPlayer.selectedPlayer == 0 ?

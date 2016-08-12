@@ -1,5 +1,6 @@
 import React, { PropTypes, Component } from 'react'
 var ReactDOM = require('react-dom');
+import Radium from 'radium'
 import { VictoryPie } from "victory";
 
 export default class Graphs extends Component {
@@ -11,7 +12,11 @@ export default class Graphs extends Component {
       ChartContainerStyle: {
         height: "100px",
         width: "50%",
-        margin: "0 auto"
+        margin: "0 auto",
+        "@media (max-width : 460px)": {
+          width: "75%",
+          paddingTop: "10px"
+        },
       }
     }
   }
@@ -54,3 +59,5 @@ export default class Graphs extends Component {
 Graphs.propTypes = {
   switchPlayerShotRange: PropTypes.object.isRequired
 }
+
+module.exports = Radium(Graphs)

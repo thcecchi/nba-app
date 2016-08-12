@@ -36,7 +36,10 @@ export default class Stats extends Component {
       height: "40px",
       width: "300px",
       margin: "0 auto",
-      background: "000"
+      background: "000",
+      "@media (max-width : 460)": {
+        width: "95%"
+      }
      },
      statsHeaderStyle: {
        color: '#000',
@@ -64,7 +67,10 @@ export default class Stats extends Component {
       margin: "0 auto",
       borderTop: "20px solid rgb(153, 255, 0)",
       background: "#344146",
-      boxShadow: "0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)"
+      boxShadow: "0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)",
+      "@media (max-width : 460)": {
+        width: "100%"
+      }
      },
      bodyContainer: {
       width: "300px",
