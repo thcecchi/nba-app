@@ -8,7 +8,10 @@ export default class Loading extends Component {
      loadingContainer: {
        display: "block",
        width: "100%",
-       marginTop: "5%"
+       marginTop: "5%",
+       "@media (max-width : 460)": {
+         marginTop: "10%"
+       }
      },
      loading: {
        display: "block",

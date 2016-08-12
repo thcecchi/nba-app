@@ -27,16 +27,17 @@ class AsyncApp extends Component {
     return (
       <div>
         <Header />
-        {state.playerList.isFetching == false ?
           <StyleRoot>
-            <Picker onChange={e => {
-              if(e.keyCode == 13){
-                dispatch(searchPlayer(e.target.value, state.playerList.items))
-                e.target.value = ''
-              }
-            }}/>
-          </StyleRoot> : <Loading text={"Loading..."}/>
-        }
+            {state.playerList.isFetching == false ?
+                <Picker onChange={e => {
+                  if(e.keyCode == 13){
+                    dispatch(searchPlayer(e.target.value, state.playerList.items))
+                    e.target.value = ''
+                  }
+                }}/>
+               : <Loading text={"Loading..."}/>
+            }
+          </StyleRoot>
 
         {state.selectedPlayer.selectedPlayer == 0 ?
           <div></div> :

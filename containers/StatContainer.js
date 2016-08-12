@@ -43,15 +43,14 @@ class StatContainer extends Component {
     return (
       <div>
         <Header />
-
-        {state.selectedPlayerStats.selectedPlayerStats ?
-          <div>
-            <StyleRoot>
-              <Stats selectedPlayerStats={this.props} />
-              <ChartButton route={"/#/viz"} buttonText={"Shooting Stats"}/>
-            </StyleRoot>
-          </div> : <Loading text={"Player not found"} />
-        }
+        <StyleRoot>
+          {state.selectedPlayerStats.selectedPlayerStats ?
+            <div>
+                <Stats selectedPlayerStats={this.props} />
+                <ChartButton route={"/#/viz"} buttonText={"Shooting Stats"}/>
+            </div> : <Loading text={"Player not found"} />
+          }
+        </StyleRoot>
       </div>
     )
   }

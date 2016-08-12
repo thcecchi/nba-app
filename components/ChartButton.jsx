@@ -20,7 +20,8 @@ export default class ChartButton extends Component {
           background: "#7CEF00"
         },
         "@media (max-width : 460)": {
-          width: "95%"
+          width: "95%",
+          marginTop: "150px",
         }
       },
       chartButtonStyle: {
