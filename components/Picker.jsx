@@ -37,7 +37,8 @@ export default class Picker extends Component {
   }
 
   closeKeyboard() {
-    this.blur();
+  console.log(this)
+    this.refs.pickerInput.blur();
   }
 
   render() {
@@ -46,7 +47,7 @@ export default class Picker extends Component {
 
     return (
       <div>
-         <input style={styles.inputStyle} type="text" onBlur={this.closeKeyboard()} onKeyUp={onChange}/>
+         <input style={styles.inputStyle} ref="pickerInput" type="text" onBlur={()=>this.closeKeyboard()} onKeyUp={onChange}/>
       </div>
     )
   }
