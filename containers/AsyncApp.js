@@ -22,6 +22,10 @@ class AsyncApp extends Component {
     this.setState(state)
   }
 
+  closeKeyboard() {
+    this.refs.picker.refs.pickerInput.blur();
+  }
+
   render() {
     const { state, isFetching, lastUpdated, dispatch, getState, selectedPlayerStats } = this.props
     return (
@@ -29,10 +33,11 @@ class AsyncApp extends Component {
         <Header />
           <StyleRoot>
             {state.playerList.isFetching == false ?
-                <Picker onChange={e => {
+                <Picker ref="picker" onChange={e => {
                   if(e.keyCode == 13){
                     dispatch(searchPlayer(e.target.value, state.playerList.items))
                     e.target.value = ''
+                    this.closeKeyboard();
                   }
                 }}/>
                : <Loading text={"Loading..."}/>
