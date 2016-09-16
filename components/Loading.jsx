@@ -9,7 +9,7 @@ export default class Loading extends Component {
        display: "block",
        position: "relative",
        width: "100%",
-       marginTop: "20%",
+       marginTop: "10%",
      },
      loading: {
        display: "block",

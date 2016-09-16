@@ -23,22 +23,13 @@ class StatContainer extends Component {
     else {
       dispatch(receivePlayerData(this.props.selectedPlayer.selectedPlayer))
     }
-
-    console.log('props: ')
-    console.log(this.props)
   }
 
   handleChange(state) {
     this.setState(state)
   }
 
-  logProps() {
-    console.log(this.props)
-  }
-
   render() {
-    this.logProps()
-
     const { state, isFetching, lastUpdated, dispatch, getState, selectedPlayerStats } = this.props
     return (
       <div>
@@ -63,7 +54,6 @@ StatContainer.propTypes = {
 }
 
 function mapStateToProps(state) {
-  console.log(state)
   const { selectedPlayer,  getPlayerList, selectedPlayerStats} = state
 
   return {

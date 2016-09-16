@@ -14,7 +14,6 @@ let createHandlers = function(dispatch) {
   };
 }
 
-
 export default class GraphSelectors extends Component {
   constructor(props) {
     super(props);
@@ -22,10 +21,9 @@ export default class GraphSelectors extends Component {
     this.state = {active: false};
   }
 
-click() {
-    this.setState({active: true});
-
-}
+  click() {
+      this.setState({active: true});
+  }
 
   getStyles() {
     return {

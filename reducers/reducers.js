@@ -2,7 +2,7 @@ import Immutable from 'immutable'
 import nba from 'nba'
 import { combineReducers } from 'redux'
 import {
-  FIND_PLAYER, FIND_PLAYER_STATS, SET_PLAYER_LIST, RECEIVE_PLAYER_DATA, SET_SHOT_STATS, SWITCH_SHOT_RANGE
+  FIND_PLAYER, FIND_PLAYER_STATS, SET_PLAYER_LIST, RECEIVE_PLAYER_DATA, SET_SHOT_STATS, SWITCH_SHOT_RANGE, SEARCH_PLAYER_NAME, CLEAR_AUTOCOMPLETE_LIST
 } from '../actions/actions'
 
 // 2 //
@@ -11,14 +11,10 @@ function selectedPlayer(state = {
 }, action) {
   switch (action.type) {
   case FIND_PLAYER:
-    console.log('find player reducer')
-    console.log(action)
     var itemList = action.playerList
-    console.log(itemList)
     var playerId = 0
     itemList.forEach(function (player) {
       if (action.playerName == player[2]) {
-        console.log(player[0])
         playerId = player[0]
       }
     })
@@ -35,12 +31,31 @@ function selectedPlayer(state = {
   }
 }
 
+function searchPlayerName(state = {}, action) {
+  switch (action.type) {
+  case SEARCH_PLAYER_NAME:
+    var itemList = action.playerList
+    var capitalFieldVal = action.fieldVal.charAt(0).toUpperCase() + action.fieldVal.slice(1);
+    var numChar = action.fieldVal.length
+    var playersNames = []
+    itemList.forEach(function (player) {
+      var trimmedPlayerName = player[2].slice(0, numChar);
+      if (capitalFieldVal == trimmedPlayerName) {
+        playersNames.push(player[2])
+      }
+    })
+    return Object.assign({}, state, {
+      autocompleteList: playersNames
+    })
+  default:
+    return state
+  }
+}
+
 // 3 //
 function selectedPlayerStats(state = {}, action) {
   switch (action.type) {
   case FIND_PLAYER_STATS:
-    console.log('find player stats reducer')
-    console.log(action.playerStats)
     if(action.playerStats == null) {
       return Object.assign({}, state, {
         selectedPlayerStats: null,
@@ -64,7 +79,6 @@ function selectedPlayerStats(state = {}, action) {
 function playerShotStats(state = {}, action) {
   switch (action.type) {
   case SET_SHOT_STATS:
-    console.log('set player shots stats reducer')
 
     // BUILD CHART DATA HERE
     const shotObj = {
@@ -146,8 +160,6 @@ function playerShotStats(state = {}, action) {
 function switchPlayerShotRange(state = { }, action) {
   switch (action.type) {
   case SWITCH_SHOT_RANGE:
-    console.log('switching around the shot range graph')
-    console.log(action.shotRange)
 
     const shotObj = action.shotObj
 
@@ -188,7 +200,6 @@ function playerList(state = {
 }, action) {
   switch (action.type) {
   case SET_PLAYER_LIST:
-    console.log('setting up the player list')
     return Object.assign({}, state, {
       isFetching: false,
       items: action.playerList
@@ -201,6 +212,7 @@ function playerList(state = {
 const rootReducer = combineReducers({
   selectedPlayer,
   playerList,
+  searchPlayerName,
   selectedPlayerStats,
   playerShotStats,
   switchPlayerShotRange

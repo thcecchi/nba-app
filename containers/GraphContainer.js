@@ -13,12 +13,10 @@ class Chart extends Component {
 
   componentDidMount() {
     const { dispatch } = this.props
-      console.log('this player shots' + this.props.playerShotStats)
       dispatch(changeShotRange('lessThan8', this.props.playerShotStats.playerAllShots))
   }
 
   componentWillReceiveProps(state) {
-    console.log('setting graph container state')
     this.setState(state.state)
   }
 
@@ -28,8 +26,6 @@ class Chart extends Component {
 
   render() {
     const { state, lastUpdated, dispatch, getState, playerShotStats, switchPlayerShotRange } = this.props
-    console.log('switch player shot range')
-    console.log(switchPlayerShotRange)
     return (
       <div>
         {state.playerShotStats.playerAllShots ?
@@ -52,7 +48,6 @@ Chart.propTypes = {
 }
 
 function mapStateToProps(state) {
-  console.log(state)
   const { selectedPlayer,  getPlayerList, selectedPlayerStats, playerShotStats, switchPlayerShotRange} = state
 
   return {
