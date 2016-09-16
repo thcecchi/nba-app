@@ -94,7 +94,6 @@ class Chart extends Component {
             <ul style={styles.autoCompleteContainer}>
               {state.searchPlayerName.autocompleteList.map((item, i) =>
                 <li style={styles.autocompleteItem} key={i} onClick={() => {
-                              console.log(item)
                               dispatch(searchPlayer(item, state.playerList.items))
                               hashHistory.pushState(null, '/#/');
                               this.refs.picker.refs.pickerInput.value = item
