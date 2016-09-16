@@ -67276,7 +67276,6 @@
 	              return _react2.default.createElement(
 	                'li',
 	                { style: styles.autocompleteItem, key: i, onClick: function onClick() {
-	                    console.log(item);
 	                    dispatch((0, _actions.searchPlayer)(item, state.playerList.items));
 	                    _reactRouter.hashHistory.pushState(null, '/#/');
 	                    _this2.refs.picker.refs.pickerInput.value = item;
