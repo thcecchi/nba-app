@@ -56,6 +56,7 @@ function switchShotRange(shotRange, shotObj) {
 
 export function searchPlayer(playerName, playerList) {
   return (dispatch, getState) => {
+
     var nameArray = playerName.split(" ");
     var newNameArray = []
 
@@ -81,28 +82,24 @@ export function receivePlayerData(player) {
       }
 
       else {
-        nba.api.playerInfo({playerId: player}, (err, response) => {
-            dispatch(findPlayerStats(response))
-          })
+        nba.stats.playerInfo({PlayerID: player}).then(function(response) {
+          dispatch(findPlayerStats(response))
+        })
       }
     }
 }
 
 export function getPlayerList() {
   return dispatch => {
-    nba.api.playersInfo({}, (err, response) => {
-      var itemList = response.resultSets[0].rowSet;
-      dispatch(setPlayerList(itemList))
-    })
+      dispatch(setPlayerList(nba.players))
   }
 }
 
 export function advancedStatsAction(currentPlayerId) {
   return dispatch => {
-    nba.api.shots({playerId: currentPlayerId,
-                  teamId: '00'}, (err, response) => {
-                  dispatch(setShotStats(response))
-      })
+    nba.stats.shots({PlayerID: currentPlayerId, teamId: '00'}).then(function(response) {
+      dispatch(setShotStats(response))
+    })
   }
 }
 

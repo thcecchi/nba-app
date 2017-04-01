@@ -14,8 +14,8 @@ function selectedPlayer(state = {
     var itemList = action.playerList
     var playerId = 0
     itemList.forEach(function (player) {
-      if (action.playerName == player[2]) {
-        playerId = player[0]
+      if (action.playerName == player.fullName) {
+        playerId = player.playerId
       }
     })
 
@@ -39,9 +39,10 @@ function searchPlayerName(state = {}, action) {
     var numChar = action.fieldVal.length
     var playersNames = []
     itemList.forEach(function (player) {
-      var trimmedPlayerName = player[2].slice(0, numChar);
+      var trimmedPlayerName = player.fullName.slice(0, numChar);
+
       if (capitalFieldVal == trimmedPlayerName) {
-        playersNames.push(player[2])
+        playersNames.push(player)
       }
     })
     return Object.assign({}, state, {

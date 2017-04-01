@@ -50,7 +50,7 @@ class Chart extends Component {
          zIndex: "-1"
        },
        buttonContainer: {
-         marginTop: "45%"
+         marginTop: "30%"
        }
      }
   }
@@ -94,11 +94,11 @@ class Chart extends Component {
             <ul style={styles.autoCompleteContainer}>
               {state.searchPlayerName.autocompleteList.map((item, i) =>
                 <li style={styles.autocompleteItem} key={i} onClick={() => {
-                              dispatch(searchPlayer(item, state.playerList.items))
+                              dispatch(searchPlayer(item.fullName, state.playerList.items))
                               hashHistory.pushState(null, '/#/');
-                              this.refs.picker.refs.pickerInput.value = item
+                              this.refs.picker.refs.pickerInput.value = item.fullName
                               dispatch(searchName('undefined', state.playerList.items))
-                            }}>{item}</li>
+                            }}>{item.fullName}</li>
               )}
             </ul>
             : <div></div>

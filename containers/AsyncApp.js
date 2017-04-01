@@ -102,11 +102,11 @@ class AsyncApp extends Component {
                     <ul style={styles.autoCompleteContainer}>
                       {state.searchPlayerName.autocompleteList.map((item, i) =>
                         <li style={styles.autocompleteItem} key={i} onClick={() => {
-                                      dispatch(searchPlayer(item, state.playerList.items))
+                                      dispatch(searchPlayer(item.fullName, state.playerList.items))
                                       this.closeKeyboard();
-                                      this.refs.picker.refs.pickerInput.value = item
+                                      this.refs.picker.refs.pickerInput.value = item.fullName
                                       dispatch(searchName('undefined', state.playerList.items))
-                                    }}>{item}</li>
+                                    }}>{item.fullName}</li>
                       )}
                     </ul>
                     : <div></div>

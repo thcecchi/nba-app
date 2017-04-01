@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react'
-var ReactDOM = require('react-dom');
+import ReactDOM from 'react-dom';
 import Radium from 'radium'
 import { VictoryPie } from "victory";
 
@@ -7,7 +7,7 @@ export default class Graphs extends Component {
   getStyles() {
     return {
       chartStyle: {
-        maxWidth: "300px"
+        maxWidth: "300px",
       },
       ChartContainerStyle: {
         height: "100px",
@@ -30,6 +30,8 @@ export default class Graphs extends Component {
       {this.props.switchPlayerShotRange.playerPercents ?
         <div style={styles.ChartContainerStyle}>
           <VictoryPie
+            width={450}
+            height={300}
             style={styles.chartStyle}
             colorScale={[
               "#344146",

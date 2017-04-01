@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react'
 import { connect } from 'react-redux';
-var ReactDOM = require('react-dom');
+import ReactDOM from 'react-dom';
 import Radium from 'radium'
 import { changeShotRange } from '../actions/actions'
 
@@ -14,7 +14,7 @@ let createHandlers = function(dispatch) {
   };
 }
 
-export default class GraphSelectors extends Component {
+class GraphSelectors extends Component {
   constructor(props) {
     super(props);
     this.handlers = createHandlers(this.props.dispatch);
