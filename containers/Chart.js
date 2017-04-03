@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { Router, Route, hashHistory, pushState } from 'react-router'
+import { Router, Route, hashHistory, push } from 'react-router'
 import Radium, {StyleRoot} from 'radium'
 import { selectedPlayer, searchPlayer, advancedStatsAction, searchName } from '../actions/actions'
 import Header from '../components/Header'
@@ -83,7 +83,7 @@ class Chart extends Component {
           <Picker ref="picker" onChange={e => {
             if(e.keyCode == 13){
               dispatch(searchPlayer(e.target.value, state.playerList.items))
-              hashHistory.pushState(null, '/#/');
+              hashHistory.push('/#/');
               e.target.value = ''
             }
             else if(e.keyCode == 65 || e.keyCode == 66 || e.keyCode == 67 || e.keyCode == 68 || e.keyCode == 69 || e.keyCode == 70 || e.keyCode == 71 || e.keyCode == 72 || e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 75 || e.keyCode == 76 || e.keyCode == 77 || e.keyCode == 78 || e.keyCode == 79 || e.keyCode == 80 || e.keyCode == 81 || e.keyCode == 82 || e.keyCode == 83 || e.keyCode == 84 || e.keyCode == 85 || e.keyCode == 86 || e.keyCode == 87 || e.keyCode == 88 || e.keyCode == 89 || e.keyCode == 90 || e.keyCode == 229) {
@@ -95,7 +95,7 @@ class Chart extends Component {
               {state.searchPlayerName.autocompleteList.map((item, i) =>
                 <li style={styles.autocompleteItem} key={i} onClick={() => {
                               dispatch(searchPlayer(item.fullName, state.playerList.items))
-                              hashHistory.pushState(null, '/#/');
+                              hashHistory.push('/#/');
                               this.refs.picker.refs.pickerInput.value = item.fullName
                               dispatch(searchName('undefined', state.playerList.items))
                             }}>{item.fullName}</li>
