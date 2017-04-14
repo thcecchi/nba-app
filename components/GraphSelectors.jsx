@@ -72,10 +72,10 @@ class GraphSelectors extends Component {
 
     return (
        <div style={styles.optionsContainerStyle}>
-          <h6 key="lessThan8" style={styles.optionStyle} onClick={() => this.props.dispatch(changeShotRange('lessThan8', this.props.playerShotStats.playerAllShots))}>>8'</h6>
+          <h6 key="lessThan8" style={styles.optionStyle} onClick={() => this.props.dispatch(changeShotRange('lessThan8', this.props.playerShotStats.playerAllShots))}>Inside 8'</h6>
           <h6 key="eightTo16" style={styles.optionStyle} onClick={() => this.props.dispatch(changeShotRange('eightTo16', this.props.playerShotStats.playerAllShots))}>8'-16'</h6>
           <h6 key="sixteenTo24" style={styles.optionStyle} onClick={() => this.props.dispatch(changeShotRange('sixteenTo24', this.props.playerShotStats.playerAllShots))}>16'-24'</h6>
-          <h6 key="twentyfourPlus" style={styles.optionStyle} onClick={() => this.props.dispatch(changeShotRange('twentyfourPlus', this.props.playerShotStats.playerAllShots))}>24'+</h6>
+          <h6 key="twentyfourPlus" style={styles.optionStyle} onClick={() => this.props.dispatch(changeShotRange('twentyfourPlus', this.props.playerShotStats.playerAllShots))}>Outside 24'</h6>
        </div>
     )
   }
